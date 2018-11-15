@@ -19,6 +19,7 @@ bool Game::update(int move) {
         board.update(move, turn);
     }
     turn = !turn;
+    moves.push(move);
     return true;
 }
 
@@ -29,25 +30,21 @@ bool Game::hasWinner() {
         }
         if (i%3 == 0) {
             if (board.getVal(i) == board.getVal(i+1) && board.getVal(i) == board.getVal(i+2)) {
-                winner = true;
                 return true;
             }
         }
         if (i < 3) {
             if (board.getVal(i) == board.getVal(i+3) && board.getVal(i) == board.getVal(i+6)) {
-                winner = true;
                 return true;
             }
         }
         if (i == 0) {
             if (board.getVal(i) == board.getVal(i+4) && board.getVal(i) == board.getVal(i+8)) {
-                winner = true;
                 return true;
             }
         }
         if (i == 2) {
             if (board.getVal(i) == board.getVal(i+2) && board.getVal(i) == board.getVal(i+4)) {
-                winner = true;
                 return true;
             }
         }
@@ -63,4 +60,8 @@ void Game::printWinner() {
     }
     std::cout << " wins!" << std::endl;
     std::cout << "Type new to play again or quit to exit" << std::endl << std::endl;
+}
+
+void Game::printBoard() {
+    board.print();
 }

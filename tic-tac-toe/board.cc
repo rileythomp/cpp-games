@@ -16,20 +16,20 @@ void printRow() {
 }
 
 void printVal(std::vector<Cell> b, int n) {
-    if (b[n].played) {
-        std::cout << b[n].val;
+    if (b[n].isPlayed()) {
+        std::cout << b[n].getVal();
     } else {
         std::cout << ' ';
     }
     std::cout << " | ";
-    if (b[n+1].played) {
-        std::cout << b[n+1].val;
+    if (b[n+1].isPlayed()) {
+        std::cout << b[n+1].getVal();
     } else {
         std::cout << ' ';
     }
     std::cout << " | ";
-    if (b[n+2].played) {
-        std::cout << b[n+2].val;
+    if (b[n+2].isPlayed()) {
+        std::cout << b[n+2].getVal();
     } else {
         std::cout << ' ';
     }
@@ -55,18 +55,18 @@ void Board::print() {
 }
 
 bool Board::isPlayed(int move) {
-    return board[move].played;
+    return board[move].isPlayed();
 }
 
 void Board::update(int move, bool turn) {
-    board[move].played = true;
+    board[move].setPlayed(true);
     if (turn) {
-        board[move].val = 'X';
+        board[move].setVal('X');
     } else {
-        board[move].val = 'O';
+        board[move].setVal('0');
     }
 }
 
 char Board::getVal(int cell) {
-    return board[cell].val;
+    return board[cell].getVal();
 }

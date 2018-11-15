@@ -32,9 +32,9 @@ int main () {
     while (cin >> cmd) {
 		if (cmd == "new") {
 			Game game;
-			game.board.print();
+			game.printBoard();
 			game.turnMessage();
-			while (!game.winner) {
+			while (!game.hasWinner()) {
 				string num;
 				int move;
 				cin >> num;
@@ -48,7 +48,7 @@ int main () {
 					if (!game.update(move)) {
 						continue;
 					}
-					game.board.print();
+					game.printBoard();
 					if (!game.hasWinner()) {
 						game.turnMessage();
 					} else {
