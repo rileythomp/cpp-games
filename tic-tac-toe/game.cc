@@ -11,16 +11,15 @@ void Game::turnMessage() {
     std::cout << "'s turn, enter a move!" << std::endl;
 }
 
-bool Game::update(int move) {
+void Game::update(int move) {
     if (board.isPlayed(move)) {
         std::cout << "Already played! Try again" << std::endl;
-        return false;
     } else {
         board.update(move, turn);
+        turn = !turn;
+        moves++;
+        printBoard();
     }
-    turn = !turn;
-    moves.push(move);
-    return true;
 }
 
 bool Game::hasWinner() {
@@ -52,6 +51,11 @@ bool Game::hasWinner() {
     return false;
 }
 
+void Game::printDraw() {
+    std::cout << "Cat's game!" << std::endl;
+    std::cout << "Type new to play again or quit to exit" << std::endl << std::endl;
+}
+
 void Game::printWinner() {
     if (!turn) {
         std::cout << 'X';
@@ -64,4 +68,8 @@ void Game::printWinner() {
 
 void Game::printBoard() {
     board.print();
+}
+
+int Game::numMoves() {
+    return moves;
 }

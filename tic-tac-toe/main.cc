@@ -45,19 +45,18 @@ int main () {
 					continue;
 				}
 				if (move > -1 && move < 9) {
-					if (!game.update(move)) {
-						continue;
-					}
-					game.printBoard();
-					if (!game.hasWinner()) {
-						game.turnMessage();
-					} else {
+					game.update(move);
+					if (game.hasWinner()) {
 						game.printWinner();
 						break;
+					} else if (game.numMoves() > 8) {
+						game.printDraw();
+						break;
+					} else {
+						game.turnMessage();
 					}
 				} else {
 					cout << "Please enter a valid move" << endl;
-					continue;
 				}
 				
 			}

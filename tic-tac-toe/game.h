@@ -3,12 +3,14 @@
 
 class Game {
     bool turn = true; // true is X false is O
-    std::stack<int> moves;
     Board board;
+    int moves = 0;
     public:
     void turnMessage();
-    bool update(int move);
+    void update(int move);
     bool hasWinner();
     void printWinner();
+    void printDraw();
     void printBoard();
+    int numMoves();
 };
