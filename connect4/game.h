@@ -1,9 +1,9 @@
 #include <string>
 #include <iostream>
+#include <cmath>
 
 
 class Game {
-
     public:
     Game();
     void start();

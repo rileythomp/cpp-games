@@ -2,27 +2,47 @@
 #define For(i, n) for(int i = 0; i < (n); ++i)
 using namespace std;
 
-void printRow() {
-    For(i, 22) {
+void printSubRow() {
+    For(i, 28) {
         if (i%4) {
             cout << ' ';
         } else {
             cout << '|';
         }
     }
-    cout << endl;
+    cout << '|' << endl;
+}
+
+void printRow(int n) {
+    cout << "   ";
+    printSubRow();
+    char c = 'A' + n;
+    cout << ' ' << c << ' ';
+    printSubRow();
+    cout << "   ";
+    For(i, 28) {
+        if (i%4) {
+            cout << '_';
+        } else {
+            cout << '|';
+        }
+    }
+    cout << '|' << endl;
 }
 
 Game::Game() {
-    cout << "start of game, print the board" << endl;
-    For(i, 15){
-        if (i%2) {
-            cout <<  '_';
+    For(i, 6) {
+        printRow(i);
+    }
+    cout << "  ";
+    for (int i = 2; i < 32; ++i) {
+        if (i%4 == 1) {
+            cout << (i-5)/4;
         } else {
             cout << ' ';
         }
     }
-    cout << endl;
+    cout << endl << endl;
 }
 
 bool Game::hasWinner() {
