@@ -1,8 +1,28 @@
 #include "game.h"
+#define For(i, n) for(int i = 0; i < (n); ++i)
 using namespace std;
 
-void Game::start() {
-    cout << "start of game" << endl;
+void printRow() {
+    For(i, 22) {
+        if (i%4) {
+            cout << ' ';
+        } else {
+            cout << '|';
+        }
+    }
+    cout << endl;
+}
+
+Game::Game() {
+    cout << "start of game, print the board" << endl;
+    For(i, 15){
+        if (i%2) {
+            cout <<  '_';
+        } else {
+            cout << ' ';
+        }
+    }
+    cout << endl;
 }
 
 bool Game::hasWinner() {
@@ -17,9 +37,9 @@ void Game::updateWithMove(string move) {
 }
 
 bool Game::hasNoMoves() {
-    return true;
+    return false;
 }
 
 void Game::end() {
-    cout << "game has ended" << endl;
+    cout << "game has ended, type new to play again" << endl;
 }

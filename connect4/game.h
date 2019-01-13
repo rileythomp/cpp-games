@@ -5,6 +5,7 @@
 class Game {
 
     public:
+    Game();
     void start();
     bool hasWinner();
     void print();
