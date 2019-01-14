@@ -41,6 +41,7 @@ void printStart() {
 	cout << '|' << endl << '|';
 	For(i, 41) {cout << '_';}
 	cout << '|' << endl << endl;
+    cout << "Type start to begin" << endl << endl;
 }
 
 void print(vector<vector<int>> grid) {
@@ -126,10 +127,16 @@ int main() {
     // grid[22][21] = 1;
     // grid[22][22] = 1;
     printStart();
-    while (1) {
-        print(grid);
-        grid = update(grid);
-        this_thread::sleep_for(chrono::milliseconds(200));
+    string start;
+    while(cin >> start) {
+        if (start == "start") {
+            
+            while (1) {
+                print(grid);
+                grid = update(grid);
+                this_thread::sleep_for(chrono::milliseconds(200));
+            }
+        }
     }
     return 0;
 }
