@@ -47,9 +47,9 @@ void print(vector<vector<int>> grid) {
     for (auto row : grid) {
         for (auto cell : row) {
             if (cell) {
-		        cout << RED << "\u25A0" << RESET << "  ";
+		        cout << BOLDYELLOW << "\u25A0" << RESET << "  ";
 	        } else {
-	    	    cout << "\u25A0" << "  ";
+	    	    cout << BOLDBLUE << "\u25A0" << RESET << "  ";
 	        }
         }
         cout << endl;
@@ -58,7 +58,7 @@ void print(vector<vector<int>> grid) {
 }
 
 vector<vector<int>> update(vector<vector<int>> grid) {
-    vector<vector<int>> newGrid(50, vector<int>(50));
+    vector<vector<int>> newGrid(40, vector<int>(40));
     int neighbourCount = 0;
     for (int i = 0; i < grid.size(); ++i) {
         for (int j = 0; j < grid.size(); ++j) {
@@ -86,17 +86,50 @@ vector<vector<int>> update(vector<vector<int>> grid) {
 }
 
 int main() {
-    vector<vector<int>> grid(50, vector<int>(50));
-    grid[25][25] = 1;
-    grid[24][25] = 1;
-    grid[24][26] = 1;
-    grid[26][25] = 1;
-    grid[25][24] = 1;
+    vector<vector<int>> grid(40, vector<int>(40));
+    // r pentomino
+    grid[20][20] = 1;
+    grid[19][20] = 1;
+    grid[19][21] = 1;
+    grid[21][20] = 1;
+    grid[20][19] = 1;
+    // acorn
+    // grid[20][20] = 1;
+    // grid[19][18] = 1;
+    // grid[21][17] = 1;
+    // grid[21][18] = 1;
+    // grid[21][21] = 1;
+    // grid[21][22] = 1;
+    // grid[21][23] = 1;
+    // b heptomino
+    // grid[20][20] = 1;
+    // grid[21][20] = 1;
+    // grid[20][19] = 1;
+    // grid[20][21] = 1;
+    // grid[19][19] = 1;
+    // grid[19][21] = 1;
+    // grid[19][22] = 1;
+    // pi heptomino
+    // grid[19][20] = 1;
+    // grid[19][18] = 1;
+    // grid[19][21] = 1;
+    // grid[20][19] = 1;
+    // grid[20][21] = 1;
+    // grid[21][21] = 1;
+    // grid[21][19] = 1;
+    // f heptomino
+    // grid[20][20] = 1;
+    // grid[19][20] = 1;
+    // grid[21][20] = 1;
+    // grid[22][20] = 1;
+    // grid[19][19] = 1;
+    // grid[22][21] = 1;
+    // grid[22][22] = 1;
     printStart();
     while (1) {
         print(grid);
         grid = update(grid);
-        this_thread::sleep_for(chrono::seconds(1));
+        this_thread::sleep_for(chrono::milliseconds(200));
     }
     return 0;
 }
