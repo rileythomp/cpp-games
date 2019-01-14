@@ -1,6 +1,8 @@
 #include <string>
 #include <iostream>
 #include <vector>
+#include <thread>         // std::this_thread::sleep_for
+#include <chrono>         // std::chrono::seconds
 using namespace std;
 
 #define For(i, n) for(int i = 0; i < (n); ++i)
@@ -57,7 +59,7 @@ void print(vector<vector<int>> grid) {
 }
 
 vector<vector<int>> update(vector<vector<int>> grid) {
-    vector<vector<int>> newGrid(20, vector<int>(20));
+    vector<vector<int>> newGrid(50, vector<int>(50));
     int neighbourCount = 0;
     for (int i = 0; i < grid.size(); ++i) {
         for (int j = 0; j < grid.size(); ++j) {
@@ -101,24 +103,25 @@ vector<vector<int>> update(vector<vector<int>> grid) {
 }
 
 int main() {
-    vector<vector<int>> grid(20, vector<int>(20));
-    grid[9][5] = 1;
-    grid[9][6] = 1;
-    grid[8][7] = 1;
-    grid[10][7] = 1;
-    grid[9][8] = 1;
-    grid[9][9] = 1;
+    vector<vector<int>> grid(50, vector<int>(50));
+    grid[25][25] = 1;
+    grid[24][25] = 1;
+    grid[24][26] = 1;
+    grid[26][25] = 1;
+    grid[25][24] = 1;
+    /*grid[9][9] = 1;
     grid[9][10] = 1;
     grid[9][11] = 1;
     grid[8][12] = 1;
     grid[10][12] = 1;
     grid[9][13] = 1;
-    grid[9][14] = 1;
+    grid[9][14] = 1;*/
     printStart();
     int n;
-    while (cin >> n) {
+    while (1) {
         print(grid);
         grid = update(grid);
+        this_thread::sleep_for (chrono::seconds(1));
     }
     return 0;
 }
