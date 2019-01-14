@@ -1,8 +1,8 @@
 #include <string>
 #include <iostream>
 #include <vector>
-#include <thread>         // std::this_thread::sleep_for
-#include <chrono>         // std::chrono::seconds
+#include <thread>        
+#include <chrono>        
 using namespace std;
 
 #define For(i, n) for(int i = 0; i < (n); ++i)
@@ -41,17 +41,16 @@ void printStart() {
 	cout << '|' << endl << '|';
 	For(i, 41) {cout << '_';}
 	cout << '|' << endl << endl;
-	cout << RED << "hello" << RESET << endl;
 }
 
 void print(vector<vector<int>> grid) {
     for (auto row : grid) {
         for (auto cell : row) {
             if (cell) {
-		cout << RED << "1 " << RESET;
-	    } else {
-	    	cout << cell << ' ';
-	    }
+		        cout << RED << "\u25A0" << RESET << "  ";
+	        } else {
+	    	    cout << "\u25A0" << "  ";
+	        }
         }
         cout << endl;
     }
@@ -63,30 +62,14 @@ vector<vector<int>> update(vector<vector<int>> grid) {
     int neighbourCount = 0;
     for (int i = 0; i < grid.size(); ++i) {
         for (int j = 0; j < grid.size(); ++j) {
-            if (i > 0 && j > 0 && grid[i-1][j-1]) {
-                neighbourCount++;
-            }
-            if (i > 0 && grid[i-1][j]) {
-                neighbourCount++;
-            }
-            if (i > 0 && j < grid.size()-1 && grid[i-1][j+1]) {
-                neighbourCount++;
-            }
-            if (j > 0 && grid[i][j-1]) {
-                neighbourCount++;
-            }
-            if (j < grid.size()-1 && grid[i][j+1]) {
-                neighbourCount++;
-            }
-            if (i < grid.size()-1 && j > 0 && grid[i+1][j-1]) {
-                neighbourCount++;
-            }
-            if (i < grid.size()-1 && grid[i+1][j]) {
-                neighbourCount++;
-            }
-            if (i < grid.size()-1 && j < grid.size()-1 && grid[i+1][j+1]) {
-                neighbourCount++;
-            }
+            if (i > 0 && j > 0 && grid[i-1][j-1]) neighbourCount++;
+            if (i > 0 && grid[i-1][j]) neighbourCount++;
+            if (i > 0 && j < grid.size()-1 && grid[i-1][j+1]) neighbourCount++;
+            if (j > 0 && grid[i][j-1]) neighbourCount++;
+            if (j < grid.size()-1 && grid[i][j+1]) neighbourCount++;
+            if (i < grid.size()-1 && j > 0 && grid[i+1][j-1]) neighbourCount++;
+            if (i < grid.size()-1 && grid[i+1][j]) neighbourCount++;
+            if (i < grid.size()-1 && j < grid.size()-1 && grid[i+1][j+1]) neighbourCount++;
             if (grid[i][j]) {
                 if (neighbourCount < 2 || neighbourCount > 3) {
                     newGrid[i][j] = 0;
@@ -109,19 +92,11 @@ int main() {
     grid[24][26] = 1;
     grid[26][25] = 1;
     grid[25][24] = 1;
-    /*grid[9][9] = 1;
-    grid[9][10] = 1;
-    grid[9][11] = 1;
-    grid[8][12] = 1;
-    grid[10][12] = 1;
-    grid[9][13] = 1;
-    grid[9][14] = 1;*/
     printStart();
-    int n;
     while (1) {
         print(grid);
         grid = update(grid);
-        this_thread::sleep_for (chrono::seconds(1));
+        this_thread::sleep_for(chrono::seconds(1));
     }
     return 0;
 }
