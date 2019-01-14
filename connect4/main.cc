@@ -6,7 +6,8 @@ void printStart() {
 	For(44) {
 		if (i != 0) {
 			cout << '_';
-		} else {
+		} 
+        else {
 			cout << ' ';
 		}
 	}
@@ -19,11 +20,11 @@ void printStart() {
 	cout << '|' << endl << '|';
 	For(43) {cout << '_';}
 	cout << '|' << endl << endl << "Type new to start a game!" << endl;
-	cout << "Moves should be entered in the form LetterNumber (B3)" << endl;
+	cout << "To drop a piece, enter it's column number" << endl << endl;;
 }
 
-bool validMove(string move) {
-    return move == "x"; 
+bool invalidMove(string move) {
+    return move.length() != 1 || move[0]-'0' < 0 || move[0]-'0' > 6;
 }
 
 int main() {
@@ -31,20 +32,27 @@ int main() {
     string cmd;
     while (cin >> cmd) {
         if (cmd == "new") {
-            Game game; // print board 
-            while (!game.hasWinner()) {
+            Game game;
+            while (1) {
                 string move;
                 cin >> move;
-                if (validMove(move)) {
+                if (invalidMove(move)) {
+                    cout << "Please enter a valid move" << endl;
+                } 
+                else if (game.moveTaken(move)) {
+                    cout << "Column full, try again" << endl;
+                } 
+                else {
                     game.updateWithMove(move);
-                    if (game.hasWinner() || game.hasNoMoves()) {
-                        game.end();
+                    char winner = game.winner();
+                    if (winner == 'X' || winner == 'O') {
+                        cout << winner << " wins! Type new to play again" << endl << endl;;
+                        break;
+                    } else if (game.hasNoMoves()) {
+                        cout << "No Moves left, type new to play again" << endl;
                         break;
                     }
-                    game.print();
-                } else {
-                    cout << "Please enter a valid move" << endl;
-                }
+                } 
             }
         }
     }
