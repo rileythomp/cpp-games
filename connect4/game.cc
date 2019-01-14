@@ -30,7 +30,7 @@ void Game::print() {
     }
     for (int i = 0; i < 28; ++i) {
         if (i%4 == 2) {
-            cout << (i-2)/4;
+            cout << (i-2)/4 + 1;
         } else {
             cout << ' ';
         }
