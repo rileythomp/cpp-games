@@ -41,14 +41,6 @@ void printStart() {
 	cout << '|' << endl << '|';
 	For(i, 41) {cout << '_';}
 	cout << '|' << endl << endl;
-    cout << "Enter 'custom' to use your own starting coordinates, or a number to use a default configuration." << endl;
-    cout << "1: R-pentomino" << endl;
-    cout << "2: Acorn" << endl;
-    cout << "3: B-heptomino" << endl;
-    cout << "4: Pi-heptonino" << endl;
-    cout << "5: F-heptomino" << endl;
-    cout << "Use ctrl-c to stop the program at any time" << endl;
-    cout << endl;
 }
 
 void print(vector<vector<int>> grid) {
@@ -100,8 +92,15 @@ bool valid_nums(const string& s1, const string& s2) {
 }
 
 int main() {
-    vector<vector<int>> grid(45, vector<int>(45));
     printStart();
+    vector<vector<int>> grid(45, vector<int>(45));
+    cout << "Use ctrl-c to stop the program at any time" << endl;
+    cout << "1: R-pentomino" << endl;
+    cout << "2: Acorn" << endl;
+    cout << "3: B-heptomino" << endl;
+    cout << "4: Pi-heptonino" << endl;
+    cout << "5: F-heptomino" << endl;
+    cout << "Enter 'custom' to use your own starting coordinates, or a number to use a default configuration: ";
     string start;
     while(cin >> start) {
         if (start == "1") {
@@ -148,7 +147,7 @@ int main() {
             grid[22][21] = 1;
             grid[22][22] = 1;
         } else if (start == "custom") {
-            cout << "Enter add to add a coordinate, enter done to begin Conway's game of life" << endl;
+            cout << "Enter add to add a coordinate, enter done to begin Conway's game of life: ";
             string cmd;
             while (cin >> cmd) {
                 if (cmd == "add") {
@@ -163,14 +162,15 @@ int main() {
                     } else {
                         cout << "Invalid input" << endl;
                     }
+                    cout << "Enter add to add a coordinate, enter done to begin Conway's game of life: ";
                 } else if (cmd == "done") {
                     break;
                 } else {
-                    cout << "Please enter a valid command" << endl;
+                    cout << "Please enter a valid command: ";
                 }
             }
         } else {
-            cout << "Please enter a valid command" << endl;
+            cout << "Please enter a valid command: ";
             continue;
         }
         while (1) {
