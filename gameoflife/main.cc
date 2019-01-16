@@ -41,7 +41,14 @@ void printStart() {
 	cout << '|' << endl << '|';
 	For(i, 41) {cout << '_';}
 	cout << '|' << endl << endl;
-    cout << "Type start to begin" << endl << endl;
+    cout << "Enter 'custom' to use your own starting coordinates, or a number to use a default configuration." << endl;
+    cout << "1: R-pentomino" << endl;
+    cout << "2: Acorn" << endl;
+    cout << "3: B-heptomino" << endl;
+    cout << "4: Pi-heptonino" << endl;
+    cout << "5: F-heptomino" << endl;
+    cout << "Use ctrl-c to stop the program at any time" << endl;
+    cout << endl;
 }
 
 void print(vector<vector<int>> grid) {
@@ -86,56 +93,90 @@ vector<vector<int>> update(vector<vector<int>> grid) {
     return newGrid;
 }
 
+bool valid_nums(const string& s1, const string& s2) {
+    return !s1.empty() && find_if(s1.begin(), s1.end(), [](char c) {return !isdigit(c);}) == s1.end() &&
+           !s2.empty() && find_if(s2.begin(), s2.end(), [](char c) {return !isdigit(c);}) == s2.end() &&
+           stoi(s1) >= 0 && stoi(s1) < 45 && stoi(s2) >= 0 && stoi(s2) < 45;
+}
+
 int main() {
-    vector<vector<int>> grid(40, vector<int>(40));
-    // r pentomino
-    grid[20][20] = 1;
-    grid[19][20] = 1;
-    grid[19][21] = 1;
-    grid[21][20] = 1;
-    grid[20][19] = 1;
-    // acorn
-    // grid[20][20] = 1;
-    // grid[19][18] = 1;
-    // grid[21][17] = 1;
-    // grid[21][18] = 1;
-    // grid[21][21] = 1;
-    // grid[21][22] = 1;
-    // grid[21][23] = 1;
-    // b heptomino
-    // grid[20][20] = 1;
-    // grid[21][20] = 1;
-    // grid[20][19] = 1;
-    // grid[20][21] = 1;
-    // grid[19][19] = 1;
-    // grid[19][21] = 1;
-    // grid[19][22] = 1;
-    // pi heptomino
-    // grid[19][20] = 1;
-    // grid[19][18] = 1;
-    // grid[19][21] = 1;
-    // grid[20][19] = 1;
-    // grid[20][21] = 1;
-    // grid[21][21] = 1;
-    // grid[21][19] = 1;
-    // f heptomino
-    // grid[20][20] = 1;
-    // grid[19][20] = 1;
-    // grid[21][20] = 1;
-    // grid[22][20] = 1;
-    // grid[19][19] = 1;
-    // grid[22][21] = 1;
-    // grid[22][22] = 1;
+    vector<vector<int>> grid(45, vector<int>(45));
     printStart();
     string start;
     while(cin >> start) {
-        if (start == "start") {
-            
-            while (1) {
-                print(grid);
-                grid = update(grid);
-                this_thread::sleep_for(chrono::milliseconds(200));
+        if (start == "1") {
+            // r pentomino
+            grid[20][20] = 1;
+            grid[19][20] = 1;
+            grid[19][21] = 1;
+            grid[21][20] = 1;
+            grid[20][19] = 1;
+        } else if (start == "2") {
+            // acorn
+            grid[20][20] = 1;
+            grid[19][18] = 1;
+            grid[21][17] = 1;
+            grid[21][18] = 1;
+            grid[21][21] = 1;
+            grid[21][22] = 1;
+            grid[21][23] = 1;
+        } else if (start == "3") {
+            // b heptomino
+            grid[20][20] = 1;
+            grid[21][20] = 1;
+            grid[20][19] = 1;
+            grid[20][21] = 1;
+            grid[19][19] = 1;
+            grid[19][21] = 1;
+            grid[19][22] = 1;
+        } else if (start == "4") {
+            //pi heptomino
+            grid[19][20] = 1;
+            grid[19][18] = 1;
+            grid[19][21] = 1;
+            grid[20][19] = 1;
+            grid[20][21] = 1;
+            grid[21][21] = 1;
+            grid[21][19] = 1;
+        } else if (start == "5") {   
+            // f heptomino
+            grid[20][20] = 1;
+            grid[19][20] = 1;
+            grid[21][20] = 1;
+            grid[22][20] = 1;
+            grid[19][19] = 1;
+            grid[22][21] = 1;
+            grid[22][22] = 1;
+        } else if (start == "custom") {
+            cout << "Enter add to add a coordinate, enter done to begin Conway's game of life" << endl;
+            string cmd;
+            while (cin >> cmd) {
+                if (cmd == "add") {
+                    string row;
+                    string col;
+                    cout << "Row: ";
+                    cin >> row;
+                    cout << "Column: ";
+                    cin >> col;
+                    if (valid_nums(row, col)) {
+                        grid[stoi(row)][stoi(col)] = 1;
+                    } else {
+                        cout << "Invalid input" << endl;
+                    }
+                } else if (cmd == "done") {
+                    break;
+                } else {
+                    cout << "Please enter a valid command" << endl;
+                }
             }
+        } else {
+            cout << "Please enter a valid command" << endl;
+            continue;
+        }
+        while (1) {
+            print(grid);
+            grid = update(grid);
+            this_thread::sleep_for(chrono::milliseconds(200));
         }
     }
     return 0;
