@@ -30,11 +30,11 @@ void printStart() {
 string getword(int n) {
 	srand(n);
 	ifstream words("words.txt");
-	int rndm = rand()%7703;
+	int random = rand()%7703;
 	int numlines = 0;
 	string line;
 	string word;
-	while (numlines <= rndm) {
+	while (numlines <= random) {
 		getline(words, line);
 		if (numlines == n) {
 			word = line;
@@ -47,7 +47,6 @@ string getword(int n) {
 
 int main() {
 	printStart();
-
 	string start;
 	while (cin >> start) {
 		if (start == "start") {
@@ -58,8 +57,8 @@ int main() {
 			int len = word.length();
 			// print board
 			// prompt guess
-
 		} else if (start == "exit") {
+			cout << "Thanks for playing!" << endl;
 			break;
 		}
 	}
