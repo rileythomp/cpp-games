@@ -7,12 +7,7 @@
 
 using namespace std;
 
-void printStart() {
-	cout << "_________________________" << endl;
-	cout << "|                       |" << endl;
-	cout << "|        Hangman        |" << endl;
-	cout << "|_______________________|" << endl;
-	cout << endl;         
+void printHanger() {
 	cout << "  ___________" << endl;
 	cout << "  |         |" << endl;
 	cout << "  |          " << endl;
@@ -23,6 +18,15 @@ void printStart() {
 	cout << "  |          " << endl;
 	cout << "__|__        " << endl;
 	cout << endl;
+}
+
+void printStart() {
+	cout << "_________________________" << endl;
+	cout << "|                       |" << endl;
+	cout << "|        Hangman        |" << endl;
+	cout << "|_______________________|" << endl;
+	cout << endl;         
+	printHanger();
 	cout << "Enter start the begin playing" << endl;
 	cout << endl;
 }
@@ -45,18 +49,49 @@ string getword(int n) {
 	return word;
 }
 
+bool inword(char c, string s) {
+	for (auto i : s) {
+		if (c == i) {return true;}
+	}
+	return false;
+}
+
+bool invalidguess(string s) {
+	return s.length() != 1 || !isalpha(s[0]);
+}
+
+void printTurn(int n) {
+	printHanger();
+	For(i, n) {cout << "_ " ;}
+	cout << endl << endl;
+	cout << "Enter a guess: ";
+}
+
 int main() {
 	printStart();
 	string start;
 	while (cin >> start) {
+		cout << endl;
 		if (start == "start") {
 			cout << "Please enter a number: ";
 			int n;
 			cin >> n;
 			string word = getword(n);
 			int len = word.length();
-			// print board
-			// prompt guess
+			printTurn(len);
+			string guess;
+			while (cin >> guess) {
+				if (invalidguess(guess)) {
+					cout << "Please enter a valid guess: ";
+					continue;
+				}
+				if (inword(guess[0], word)) {
+					cout << "Correct, " << guess[0] << " is in the word" << endl;
+				} else {
+					cout << "Sorry, " << guess[0] << " is not in the word" << endl;
+				}
+				printTurn(len);
+			}
 		} else if (start == "exit") {
 			cout << "Thanks for playing!" << endl;
 			break;
