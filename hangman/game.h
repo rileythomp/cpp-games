@@ -15,6 +15,6 @@ class Game {
     std::string word;
     std::string guess;
     void setword();
-    bool invalidguess(std::string s);
-    bool inword(char c, std::string word);
+    bool invalidguess();
+    bool inword();
 };
