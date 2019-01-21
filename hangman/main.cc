@@ -38,11 +38,10 @@ int main() {
 			g.printTurn();
 			g.play();
 		} else if (start == "exit") {
-			cout << "Thanks for playing!" << endl;
+			cout << "Thanks for playing!" << endl << endl;
 			break;
-		} else {
-			cout << "Enter start to begin playing" << endl << endl;
 		}
+		cout << "Enter start to play again or exit to quit" << endl << endl;
 	}
 }
 
