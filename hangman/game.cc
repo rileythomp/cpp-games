@@ -8,6 +8,7 @@ Game::Game() {
     cout << "Please enter a number: ";
 	cin >> seed;
     setword();
+	wrong = 0;
 }
 
 void Game::setword() {
@@ -28,10 +29,10 @@ void Game::setword() {
 void Game::printTurn() {
 	cout << "  ___________" << endl;
 	cout << "  |         |" << endl;
-	cout << "  |          " << endl;
-	cout << "  |          " << endl;
-	cout << "  |          " << endl;
-	cout << "  |          " << endl;
+	cout << "  |         " << (wrong > 0 ? 'O' : ' ') << endl;
+	cout << "  |        " << (wrong > 5 ? '\\' : ' ') << (wrong > 1 ? '|' : ' ') << (wrong > 6 ? '/' : ' ') << endl;
+	cout << "  |         " << (wrong > 2 ? '|' : ' ') << endl;
+	cout << "  |        " << (wrong > 3 ? '/' : ' ') << ' ' << (wrong > 4 ? '\\' : ' ') << endl;
 	cout << "  |          " << endl;
 	cout << "  |          " << endl;
 	cout << "__|__        " << endl;
@@ -94,7 +95,12 @@ void Game::play() {
 				break;
 			}
         } else {
+			wrong++;
             cout << "Sorry, " << c << " is not in the word" << endl;
+			if (wrong > 7) {
+				cout << endl << "Oh no! You're man is hung!" << endl << endl;
+				break;
+			}
         }
         printTurn();
 		cout << "Enter a guess: ";

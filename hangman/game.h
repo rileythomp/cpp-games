@@ -14,6 +14,7 @@ class Game {
     char c;
     int len;
     int seed;
+    int wrong;
     std::string word;
     std::string guess;
     std::vector<char> guesses;
