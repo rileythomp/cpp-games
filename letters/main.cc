@@ -51,7 +51,7 @@ vector<string> h = {" ***   *** ",
                     " * ***** * ",
                     " * ***** * ",
                     " * *   * * ",
-                    " ***   ***  "};
+                    " ***   *** "};
 
 vector<string> i = {" *** ",
                     " * * ",
@@ -169,7 +169,7 @@ vector<string> z = {" ********* ",
 
 
 int main() {
-    vector<vector<string>> word = {z,o,o,z,y};
+    vector<vector<string>> word = {h,e,l,l,o,w,o,r,l,d};
     for (int x = 0; x < 6; ++x) {
         for (auto letter : word) {
             cout << letter[x];
