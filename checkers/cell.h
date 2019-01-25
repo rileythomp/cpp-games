@@ -1,5 +1,3 @@
-#include <string>
-
 class Cell {
     public:
     Cell();

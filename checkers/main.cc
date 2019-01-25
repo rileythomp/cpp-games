@@ -1,7 +1,5 @@
 #include "game.h"
 
-#define For(n) for(int i = 0; i < (n); ++i)
-
 using namespace std;
 
 void printStart() {
@@ -10,15 +8,15 @@ void printStart() {
 	cout << "|          Checkers          |" << endl;
 	cout << "|____________________________|" << endl;
 	cout << endl;
-	cout << "Type start to begin a game!" << endl << endl;
+	cout << "Type new to start a game" << endl << endl;
 }
 
 int main() {
     printStart();
     string cmd;
     while (cin >> cmd) {
-        if (cmd == "start") {Game game;} 
+        if (cmd == "new") {Game game;} 
 		else if (cmd == "quit") {break;} 
-		else {cout << "Type new to start a game or quit to exit" << endl;}
+		cout << "Type new to start a game or quit to exit" << endl;
     }
 }

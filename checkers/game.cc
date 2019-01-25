@@ -14,22 +14,27 @@ void printSubRow(char c) {
 
 void Game::printrow(int i) {
     printSubRow(' ');
+
     for (auto cell : board[i]) {
         cout << '|' << "  " << cell.piece << "  ";
     }
     cout << "| " << i << endl;
+
     printSubRow('_');
 }
 
-void Game::print() {
+void Game::printboard() {
     cout << ' ';
     For(i,47) {cout << '_';}
     cout << endl;
+
     For(i, 8) {printrow(i);}
+
     For(i, 48) {
         if (i%6 == 3) {cout << (i-3)/6;} 
         else {cout << ' ';}
     }
+
     cout << endl << endl;  
     cout << (turn ? 'X' : 'O') << "'s turn";
     cout << endl << endl;
@@ -45,13 +50,32 @@ Game::Game() {
         }
         board.push_back(row);
     }
+
     turn = true;
-    print();
+    xleft = 12;
+    oleft = 12;
+    printboard();
     play();
 }
 
 void Game::update() {
-    //turn = !turn;
+    startcol = pmove[0] - '0';
+    startrow = pmove[1] - '0';
+    nextcol = pmove[3] - '0';
+    nextrow = pmove[4] - '0';
+    board[startrow][startcol] = Cell();
+    board[nextrow][nextcol] = Cell((turn ? 'X' : 'O'));
+
+    bool jumping = startcol+2 == nextcol || startcol-2 == nextcol;
+    if (jumping) {
+        jumpedrow = startrow+(turn ? -1: 1);
+        jumpedcol = startcol+(startcol+2 == nextcol ? 1 : -1);
+        board[jumpedrow][jumpedcol] = Cell();
+        turn ? oleft-- : xleft--;
+    }
+
+    turn = !turn;
+    printboard();
 }
 
 bool Game::validmove() {
@@ -63,37 +87,42 @@ bool Game::validmove() {
     return true;
 }
 
-bool Game::wrongpiece(char piece) {
-    return (turn && piece != 'X') ||  (!turn && piece != 'O');
+bool Game::canjump() {
+    bool wrongcolumn = startcol+2 != nextcol && startcol-2 != nextcol;
+    if (wrongcolumn) {return false;}
+    jumpedrow = startrow+(turn ? -1: 1);
+    jumpedcol = startcol+(startcol+2 == nextcol ? 1 : -1);
+    bool jumpingRightPiece =  board[jumpedrow][jumpedcol].piece == (turn ? 'O' : 'X');
+    return jumpingRightPiece;
 }
 
 bool Game::canmove() {
-    int startcol = pmove[0] - '0';
-    int startrow = pmove[1] - '0';
-    Cell startcell = board[startrow][startcol];
-    if (wrongpiece(startcell.piece)) {return false;}
+    startcol = pmove[0] - '0';
+    startrow = pmove[1] - '0';
+    char startpiece = board[startrow][startcol].piece;
+    bool movingWrongPiece = turn ? startpiece != 'X' : startpiece != 'O';
+    if (movingWrongPiece) {return false;}
 
-    int nextcol = pmove[3] - '0';
-    int nextrow = pmove[4] - '0';
-    Cell nextcell = board[nextrow][nextcol];
-    if (nextcell.filled) {return false;}
+    nextcol = pmove[3] - '0';
+    nextrow = pmove[4] - '0';
+    bool nextfilled = board[nextrow][nextcol].filled;
+    if (nextfilled) {return false;}
 
-    // jump move
-    if (turn && startrow-2 == nextrow) {
-        // check col was proper
-        if (startcol+2 != nextrow && startcol-2 != nextrow) {return false;}
-        // check jumped piece is correct
-    } else if (!turn && startrow+2 == nextrow){
-        // check col was proper
-        if (startcol+2 != nextrow && startcol-2 != nextrow) {return false;}
-        // check jumped piece is correct
+    bool attemptingJump = (turn ? startrow-2 == nextrow : startrow+2 == nextrow);
+    if (attemptingJump) {
+        return canjump();
     }
-    return (startrow-1 == nextrow || startrow+1 == nextrow) && 
-           (startcol+1 == nextcol || startcol-1 == nextcol);
+
+    bool legalmove = (turn ? startrow-1 == nextrow : startrow+1 == nextrow) && 
+                     (startcol+1 == nextcol || startcol-1 == nextcol);
+    return legalmove;
 }
 
 bool Game::haswinner() {
-    winner = ' ';
+    if (oleft == 0 || xleft == 0) {
+        winner = turn ? 'O': 'X';
+        return true;
+    }
     return false;
 }
 
@@ -102,7 +131,7 @@ bool Game::haswinner() {
 void Game::play() {
     while (1) {
         cin >> pmove;
-        if (validmove() && canmove()) { // pmove valid
+        if (validmove() && canmove()) { 
             update();
             if (haswinner()) {
                 cout << winner << " wins!" << endl;
