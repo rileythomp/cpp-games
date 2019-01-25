@@ -55,6 +55,11 @@ void Game::update() {
 }
 
 bool validmove(string move) {
+    if (move.length() != 5) {return false;}
+    For(i,5) {
+        if (i == 2 && move[i] != ',') {return false;}
+        else if (i != 2 && (!isdigit(move[i]) || move[i]-'0' > 7)) {return false;}
+    }
     return true;
 }
 
@@ -73,7 +78,7 @@ void Game::play() {
     while (1) {
         string playermove;
         cin >> playermove;
-        if (validmove(move)) { // move valid
+        if (validmove(playermove)) { // move valid
             move = playermove;
             if (canmove()) {
                 update();
