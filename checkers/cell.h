@@ -5,5 +5,5 @@ class Cell {
     Cell();
     Cell(char c);
     bool filled;
-    char colour;
+    char piece;
 };

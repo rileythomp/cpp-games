@@ -15,7 +15,7 @@ void printSubRow(char c) {
 void Game::printrow(int i) {
     printSubRow(' ');
     for (auto cell : board[i]) {
-        cout << '|' << "  " << cell.colour << "  ";
+        cout << '|' << "  " << cell.piece << "  ";
     }
     cout << "| " << i << endl;
     printSubRow('_');
@@ -51,20 +51,45 @@ Game::Game() {
 }
 
 void Game::update() {
-    turn = !turn;
+    //turn = !turn;
 }
 
-bool validmove(string move) {
-    if (move.length() != 5) {return false;}
+bool Game::validmove() {
+    if (pmove.length() != 5) {return false;}
     For(i,5) {
-        if (i == 2 && move[i] != ',') {return false;}
-        else if (i != 2 && (!isdigit(move[i]) || move[i]-'0' > 7)) {return false;}
+        if (i == 2 && pmove[i] != ',') {return false;}
+        else if (i != 2 && (!isdigit(pmove[i]) || pmove[i]-'0' > 7)) {return false;}
     }
     return true;
 }
 
+bool Game::wrongpiece(char piece) {
+    return (turn && piece != 'X') ||  (!turn && piece != 'O');
+}
+
 bool Game::canmove() {
-    return true;
+    int startcol = pmove[0] - '0';
+    int startrow = pmove[1] - '0';
+    Cell startcell = board[startrow][startcol];
+    if (wrongpiece(startcell.piece)) {return false;}
+
+    int nextcol = pmove[3] - '0';
+    int nextrow = pmove[4] - '0';
+    Cell nextcell = board[nextrow][nextcol];
+    if (nextcell.filled) {return false;}
+
+    // jump move
+    if (turn && startrow-2 == nextrow) {
+        // check col was proper
+        if (startcol+2 != nextrow && startcol-2 != nextrow) {return false;}
+        // check jumped piece is correct
+    } else if (!turn && startrow+2 == nextrow){
+        // check col was proper
+        if (startcol+2 != nextrow && startcol-2 != nextrow) {return false;}
+        // check jumped piece is correct
+    }
+    return (startrow-1 == nextrow || startrow+1 == nextrow) && 
+           (startcol+1 == nextcol || startcol-1 == nextcol);
 }
 
 bool Game::haswinner() {
@@ -76,20 +101,15 @@ bool Game::haswinner() {
 
 void Game::play() {
     while (1) {
-        string playermove;
-        cin >> playermove;
-        if (validmove(playermove)) { // move valid
-            move = playermove;
-            if (canmove()) {
-                update();
-                if (haswinner()) {
-                    cout << winner << " wins!" << endl;
-                    break;
-                }
-            } 
-            else {cout << "Sorry, you can't go there" << endl;}
+        cin >> pmove;
+        if (validmove() && canmove()) { // pmove valid
+            update();
+            if (haswinner()) {
+                cout << winner << " wins!" << endl;
+                break;
+            }
         } else {
-            cout << "Please enter a valid move" << endl;
+            cout << "Please enter a valid pmove" << endl;
         }
     }
 }

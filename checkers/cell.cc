@@ -8,10 +8,10 @@ using namespace std;
 
 Cell::Cell() {
     filled = false;
-    colour = ' ';
+    piece = ' ';
 }
 
 Cell::Cell(char c) {
     filled = true;
-    colour = c;
+    piece = c;
 }
