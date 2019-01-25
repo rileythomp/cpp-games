@@ -16,7 +16,8 @@ void Game::printrow(int i) {
     printSubRow(' ');
 
     for (auto cell : board[i]) {
-        cout << '|' << "  " << cell.piece << "  ";
+        char piece = (cell.isking ? cell.piece-32 : cell.piece);
+        cout << '|' << "  " << piece << "  ";
     }
     cout << "| " << i << endl;
 
@@ -36,7 +37,7 @@ void Game::printboard() {
     }
 
     cout << endl << endl;  
-    cout << (turn ? 'X' : 'O') << "'s turn";
+    cout << (turn ? 'x' : 'o') << "'s turn";
     cout << endl << endl;
 }
 
@@ -44,8 +45,8 @@ Game::Game() {
     For(i,  8) {
         vector<Cell> row;
         For(j, 8) {
-            if (i < 3 && ((i+j)%2)) {row.push_back(Cell('O'));} 
-            else if (i > 4 && ((i+j)%2)) {row.push_back(Cell('X'));} 
+            if (i < 3 && ((i+j)%2)) {row.push_back(Cell('o'));} 
+            else if (i > 4 && ((i+j)%2)) {row.push_back(Cell('x'));} 
             else {row.push_back(Cell());}
         }
         board.push_back(row);
@@ -64,7 +65,8 @@ void Game::update() {
     nextcol = pmove[3] - '0';
     nextrow = pmove[4] - '0';
     board[startrow][startcol] = Cell();
-    board[nextrow][nextcol] = Cell((turn ? 'X' : 'O'));
+    board[nextrow][nextcol] = Cell((turn ? 'x' : 'o'));
+    if (nextrow == 0 || nextrow == 7) {board[nextrow][nextcol].isking = true;}
 
     bool jumping = startcol+2 == nextcol || startcol-2 == nextcol;
     if (jumping) {
@@ -92,7 +94,7 @@ bool Game::canjump() {
     if (wrongcolumn) {return false;}
     jumpedrow = startrow+(turn ? -1: 1);
     jumpedcol = startcol+(startcol+2 == nextcol ? 1 : -1);
-    bool jumpingRightPiece =  board[jumpedrow][jumpedcol].piece == (turn ? 'O' : 'X');
+    bool jumpingRightPiece =  board[jumpedrow][jumpedcol].piece == (turn ? 'o' : 'x');
     return jumpingRightPiece;
 }
 
@@ -100,7 +102,7 @@ bool Game::canmove() {
     startcol = pmove[0] - '0';
     startrow = pmove[1] - '0';
     char startpiece = board[startrow][startcol].piece;
-    bool movingWrongPiece = turn ? startpiece != 'X' : startpiece != 'O';
+    bool movingWrongPiece = turn ? startpiece != 'x' : startpiece != 'o';
     if (movingWrongPiece) {return false;}
 
     nextcol = pmove[3] - '0';
@@ -108,6 +110,14 @@ bool Game::canmove() {
     bool nextfilled = board[nextrow][nextcol].filled;
     if (nextfilled) {return false;}
 
+    // x jump normal
+    // x jump w king
+    // o jump normal
+    // o jump w king
+    // x move normal
+    // x move w king
+    // o move normal
+    // o move w king
     bool attemptingJump = (turn ? startrow-2 == nextrow : startrow+2 == nextrow);
     if (attemptingJump) {
         return canjump();
@@ -120,7 +130,7 @@ bool Game::canmove() {
 
 bool Game::haswinner() {
     if (oleft == 0 || xleft == 0) {
-        winner = turn ? 'O': 'X';
+        winner = turn ? 'o': 'x';
         return true;
     }
     return false;

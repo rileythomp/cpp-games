@@ -4,4 +4,5 @@ class Cell {
     Cell(char c);
     bool filled;
     char piece;
+    bool isking;
 };
