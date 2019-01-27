@@ -3,6 +3,8 @@
 #include <vector>
 #include <thread>        
 #include <chrono>        
+#include <algorithm>
+#include <iterator>
 using namespace std;
 
 #define For(i, n) for(int i = 0; i < (n); ++i)
@@ -47,9 +49,9 @@ void print(vector<vector<int>> grid) {
     for (auto row : grid) {
         for (auto cell : row) {
             if (cell) {
-		        cout << BOLDYELLOW << "\u25A0" << RESET << "  ";
+		        cout << BOLDWHITE << "\u25A0" << RESET << "  ";
 	        } else {
-	    	    cout << BOLDBLUE << "\u25A0" << RESET << "  ";
+	    	    cout << BOLDBLACK << "\u25A0" << RESET << "  ";
 	        }
         }
         cout << endl;

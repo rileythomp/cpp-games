@@ -98,7 +98,8 @@ void Game::play() {
 			wrong++;
             cout << "Sorry, " << c << " is not in the word" << endl;
 			if (wrong > 7) {
-				cout << endl << "Oh no! You're man is hung!" << endl << endl;
+				cout << endl << "Oh no! You're man is hung!" << endl;
+				cout << "The word was " << word << endl << endl;
 				break;
 			}
         }
