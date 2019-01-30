@@ -1,7 +1,7 @@
 # File: "Makefile"
 CXX = g++
 CXXFLAGS = -std=c++14 -Wall -Werror=vla -g -MMD
-EXEC = con4
+EXEC = connect4
 OBJECTS = main.o game.o cell.o
 DEPENDS = ${OBJECTS:.o=.d}
 ${EXEC}: ${OBJECTS}
