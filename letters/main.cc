@@ -421,16 +421,103 @@ vector<string> Z = {" ********* ",
                     "   * *     ",
                     " * ******* ",
                     " ********* "};
+
+  vector<vector<string>> letters;
                     
-
-
+void addtoletters(char letter) {
+    switch (letter) {
+        case 'a':
+            letters.push_back(a);
+            break;
+        case 'b':
+            letters.push_back(b);
+            break;
+        case 'c':
+            letters.push_back(c);
+            break;
+        case 'd':
+            letters.push_back(d);
+            break;
+        case 'e':
+            letters.push_back(e);
+            break;
+        case 'f':
+            letters.push_back(f);
+            break;
+        case 'g':
+            letters.push_back(g);
+            break;
+        case 'h':
+            letters.push_back(h);
+            break;
+        case 'i':
+            letters.push_back(i);
+            break;
+        case 'j':
+            letters.push_back(j);
+            break;
+        case 'k':
+            letters.push_back(k);
+            break;
+        case 'l':
+            letters.push_back(l);
+            break;
+        case 'm':
+            letters.push_back(m);
+            break;
+        case 'n':
+            letters.push_back(n);
+            break;
+        case 'o':
+            letters.push_back(o);
+            break;
+        case 'p':
+            letters.push_back(p);
+            break;
+        case 'q':
+            letters.push_back(q);
+            break;
+        case 'r':
+            letters.push_back(r);
+            break;
+        case 's':
+            letters.push_back(s);
+            break;
+       case 't':
+            letters.push_back(t);
+            break;
+        case 'u':
+            letters.push_back(u);
+            break;
+        case 'v':
+            letters.push_back(v);
+            break;
+        case 'w':
+            letters.push_back(w);
+            break;
+        case 'x':
+            letters.push_back(x);
+            break;
+        case 'y':
+            letters.push_back(y);
+            break;
+        case 'z':
+            letters.push_back(z);
+            break;
+    }
+}
 
 int main() {
-    vector<vector<string>> word = {y,e,e,z,y,z};
-    for (int x = 0; x < word[0].size(); ++x) {
-        for (auto letter : word) {
-            cout << letter[x];
-        }
+    cout << "Enter a word to be printed" << endl << endl;
+    string word;
+    while (cin >> word) {
+        letters = {};
+        for (char c : word) {addtoletters(c);}
+        for (int x = 0; x < letters[0].size(); ++x) {
+            for (auto letter : letters) {cout << letter[x];}
+            cout << endl;
+        }   
         cout << endl;
+        cout << "Enter a word to be printed" << endl << endl;;
     }
 }
