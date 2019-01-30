@@ -1,4 +1,4 @@
-#include "game.h"
+#include "game.hh"
 
 using namespace std;
 
@@ -24,8 +24,8 @@ void printStart() {
 	cout << "|          Backgammon          |" << endl;
 	cout << "|______________________________|" << endl;
 	cout << endl;
-	cout << "Type new to start a game" << endl << endl;
 	printBoard();
+	cout << "Type new to start a game: ";
 }
 
 int main() {

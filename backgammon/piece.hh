@@ -3,4 +3,4 @@ class Piece {
 
     public:
     Piece();
-}
+};
