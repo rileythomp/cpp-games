@@ -1,6 +1,5 @@
-class Piece {
+class Checker {
     char letter;
-
     public:
-    Piece();
+    Checker();
 };
