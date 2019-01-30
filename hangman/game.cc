@@ -41,28 +41,20 @@ void Game::printTurn() {
 	cout << endl << endl;
 }
 
-bool Game::invalidguess() {
-	return guess.length() != 1 || !isalpha(guess[0]);
-}
+bool Game::invalidguess() {return guess.length() != 1 || !isalpha(guess[0]);}
 
 bool Game::alreadyguessed() {
-	for (auto i : guesses) {
-		if (c == i) {return true;}
-	}
+	for (auto i : guesses) {if (c == i) {return true;}}
 	return false;
 }
 
 bool Game::inword() {
-	for (auto i : word) {
-		if (c == i) {return true;}
-	}
+	for (auto i : word) {if (c == i) {return true;}}
 	return false;
 }
 
 bool Game::haswon() {
-	for (auto i : letters) {
-		if (i == '_') {return false;}
-	}
+	for (auto i : letters) {if (i == '_') {return false;}}
 	return true;
 }
 
@@ -72,23 +64,17 @@ void Game::play() {
         if (invalidguess()) {
             cout << "Please enter a valid guess: ";
             continue;
-        } else {
-			c = guess[0];	
-		}
+        } 
+		else {c = guess[0];}
 		if (alreadyguessed()) {
 			cout << "You've already guessed that!" << endl << endl;;
 			cout  << "Enter a guess: ";
 			continue;
-		} else {
-			guesses.push_back(c);
-        }
+		} 
+		else {guesses.push_back(c);}
         if (inword()) {
             cout << "Correct, " << c << " is in the word" << endl;
-			For(i, len) {
-				if (c == word[i]) {
-					letters[i] = c;
-				}
-			}
+			For(i, len) {if (c == word[i]) {letters[i] = c;}}
 			if (haswon()) {
 				printTurn();
 				cout << endl << "Congratulations! You won!" << endl << endl;

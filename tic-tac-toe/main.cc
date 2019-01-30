@@ -8,11 +8,8 @@ using namespace std;
 
 void printStart() {
 	For(i, 42) {
-		if (i != 0) {
-			cout << '_';
-		} else {
-			cout << ' ';
-		}
+		if (i != 0) {cout << '_';} 
+		else {cout << ' ';}
 	}
 	cout << endl << '|';
 	For(i, 41) {cout << ' ';}
@@ -38,9 +35,8 @@ int main () {
 				string num;
 				int move;
 				cin >> num;
-				try {
-					move = stoi(num);
-				} catch (exception& e) {
+				try {move = stoi(num);} 
+				catch (exception& e) {
 					cout << "Please enter a valid move" << endl;
 					continue;
 				}
@@ -52,13 +48,9 @@ int main () {
 					} else if (game.numMoves() > 8) {
 						game.printDraw();
 						break;
-					} else {
-						game.turnMessage();
-					}
-				} else {
-					cout << "Please enter a valid move" << endl;
-				}
-				
+					} 
+					else {game.turnMessage();}
+				} else {cout << "Please enter a valid move" << endl;}
 			}
 		} else if (cmd == "quit") {
 			cout << "Thanks for playing!" << endl;

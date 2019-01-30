@@ -4,12 +4,8 @@ using namespace std;
 
 void printSubRow(char c) {
     For(i, 28) {
-        if (i%4 == 0) {
-            cout << '|';
-        } 
-        else {
-            cout << c;
-        }
+        if (i%4 == 0) {cout << '|';} 
+        else {cout << c;}
     }
     cout << '|' << endl;
 }
@@ -17,23 +13,16 @@ void printSubRow(char c) {
 void Game::printRow(int i) {
     printSubRow(' ');
     vector<Cell> row = board[i];
-    for (Cell cell : row) {
-        cout << "| " << cell.letter << ' ';
-    }
+    for (Cell cell : row) {cout << "| " << cell.letter << ' ';}
     cout << '|' << endl;
     printSubRow('_');
 }
 
 void Game::print() {
-    for (int i = 5; i >= 0; --i) {
-        printRow(i);
-    }
+    for (int i = 5; i >= 0; --i) {printRow(i);}
     for (int i = 0; i < 28; ++i) {
-        if (i%4 == 2) {
-            cout << (i-2)/4;
-        } else {
-            cout << ' ';
-        }
+        if (i%4 == 2) {cout << (i-2)/4;} 
+        else {cout << ' ';}
     }
     cout << endl << endl;  
     cout << (turn ? 'X' : 'O') << "'s turn" << endl << endl;
@@ -42,9 +31,7 @@ void Game::print() {
 Game::Game() {
     For(i, 6) {
         vector<Cell> row;
-        For(j, 7) {
-            row.push_back(Cell());
-        }
+        For(j, 7) {row.push_back(Cell());}
         board.push_back(row);
     }
     print();
@@ -54,7 +41,7 @@ char Game::diagWinner() {
     // down to right
     for (int i = 3; i < 6; ++i) {
         For(j, 4) {
-            if ((board[i][j].letter == 'X' || board[i][j].letter == 'O') &&
+            if (board[i][j].letter != ' ' &&
                 board[i][j].letter == board[i-1][j+1].letter && 
                 board[i][j].letter == board[i-2][j+2].letter &&
                 board[i][j].letter == board[i-3][j+3].letter) {
@@ -65,7 +52,7 @@ char Game::diagWinner() {
     // up to the right
     For(i, 3) {
         For(j, 4) {
-            if ((board[i][j].letter == 'X' || board[i][j].letter == 'O') &&
+            if (board[i][j].letter != ' ' &&
                 board[i][j].letter == board[i+1][j+1].letter && 
                 board[i][j].letter == board[i+2][j+2].letter &&
                 board[i][j].letter == board[i+3][j+3].letter) {
@@ -107,13 +94,9 @@ char Game::vertWinner() {
 
 char Game::winner() {
     char win = vertWinner();
-    if (win != ' ') {
-        return win;
-    }
+    if (win != ' ') {return win;}
     win = horizWinner();
-    if (win != ' ') {
-        return win;
-    }
+    if (win != ' ') {return win;}
     return diagWinner();
 }
 
@@ -130,18 +113,10 @@ void Game::updateWithMove(string move) {
 }
 
 bool Game::hasNoMoves() {
-    For(i, 7) {
-        if (!board[5][i].filled) {
-            return false;
-        }
-    }
+    For(i, 7) {if (!board[5][i].filled) {return false;}}
     return true;
 }
 
-void Game::end() {
-    cout << "game has ended, type new to play again" << endl;
-}
+void Game::end() {cout << "game has ended, type new to play again" << endl;}
 
-bool Game::moveTaken(string move) {
-    return board[5][move[0]-'0'].filled;
-}
+bool Game::moveTaken(string move) {return board[5][move[0]-'0'].filled;}

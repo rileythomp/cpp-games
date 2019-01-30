@@ -4,12 +4,8 @@ using namespace std;
 
 void printStart() {
 	For(44) {
-		if (i != 0) {
-			cout << '_';
-		} 
-        else {
-			cout << ' ';
-		}
+		if (i != 0) {cout << '_';} 
+        else {cout << ' ';}
 	}
 	cout << endl << '|';
 	For(43) {cout << ' ';}
@@ -36,12 +32,8 @@ int main() {
             while (1) {
                 string move;
                 cin >> move;
-                if (invalidMove(move)) {
-                    cout << "Please enter a valid move" << endl;
-                } 
-                else if (game.moveTaken(move)) {
-                    cout << "Column full, try again" << endl;
-                } 
+                if (invalidMove(move)) {cout << "Please enter a valid move" << endl;} 
+                else if (game.moveTaken(move)) {cout << "Column full, try again" << endl;} 
                 else {
                     game.updateWithMove(move);
                     char winner = game.winner();

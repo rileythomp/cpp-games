@@ -8,17 +8,17 @@ using std::vector;
 using std::string;
 
 class Game {
-    vector<vector<Cell*>> board;
-    string pmove;
+    bool turn;
     int xleft;
     int oleft;
-    int startrow;
-    int startcol;
     int nextrow;
     int nextcol;
+    int startrow;
+    int startcol;
     int jumpedrow;
     int jumpedcol;
-    bool turn;
+    string pmove;
+    vector<vector<Cell*>> board;
 
     void printrow(int i);
     void printboard();

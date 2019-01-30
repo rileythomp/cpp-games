@@ -4,22 +4,7 @@
 #define For(i, n) for(int i = 0; i < (n); ++i)
 
 #define RESET   "\033[0m"
-#define BLACK   "\033[30m"      /* Black */
-#define RED     "\033[31m"      /* Red */
-#define GREEN   "\033[32m"      /* Green */
-#define YELLOW  "\033[33m"      /* Yellow */
-#define BLUE    "\033[34m"      /* Blue */
-#define MAGENTA "\033[35m"      /* Magenta */
-#define CYAN    "\033[36m"      /* Cyan */
-#define WHITE   "\033[37m"      /* White */
-#define BOLDBLACK   "\033[1m\033[30m"      /* Bold Black */
-#define BOLDRED     "\033[1m\033[31m"      /* Bold Red */
-#define BOLDGREEN   "\033[1m\033[32m"      /* Bold Green */
-#define BOLDYELLOW  "\033[1m\033[33m"      /* Bold Yellow */
-#define BOLDBLUE    "\033[1m\033[34m"      /* Bold Blue */
-#define BOLDMAGENTA "\033[1m\033[35m"      /* Bold Magenta */
-#define BOLDCYAN    "\033[1m\033[36m"      /* Bold Cyan */
-#define BOLDWHITE   "\033[1m\033[37m"      /* Bold White */
+#define BOLDRED     "\033[1m\033[31m"      
 
 using namespace std;
 
@@ -37,13 +22,11 @@ char printChecker(Cell* cell) {
 
 void Game::printrow(int i) {
     printSubRow(' ');
-
     vector<Cell*> row = board[i];
     for (auto cell : row) {
         cout << '|' << "  " << (cell->checker && cell->checker->isKing ? BOLDRED : "") << (cell->hasChecker ? printChecker(cell) : ' ') << (cell->checker && cell->checker->isKing ? RESET : "") << "  ";
     }
     cout << "| " << i << endl;
-
     printSubRow('_');
 }
 
@@ -51,14 +34,11 @@ void Game::printboard() {
     cout << ' ';
     For(i,47) {cout << '_';}
     cout << endl;
-
     For(i, 8) {printrow(i);}
-
     For(i, 48) {
         if (i%6 == 3) {cout << (i-3)/6;} 
         else {cout << ' ';}
     }
-
     cout << endl << endl;  
     cout << (turn ? 'x' : 'o') << "'s turn";
     cout << endl << endl;
@@ -81,11 +61,9 @@ Game::Game() {
         }
         board.push_back(row);
     }
-
     turn = true;
     xleft = 12;
     oleft = 12;
-
     printboard();
     play();
 }
@@ -166,8 +144,6 @@ bool Game::canmove() {
 bool Game::haswinner() {
     return oleft == 0 || xleft == 0;
 }
-
-
 
 void Game::play() {
     while (1) {

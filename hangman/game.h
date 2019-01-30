@@ -5,12 +5,6 @@
 #include <algorithm>
 
 class Game {
-    public:
-    Game();
-    void play();
-    void printTurn();
-
-    private:
     char c;
     int len;
     int seed;
@@ -24,4 +18,9 @@ class Game {
     void setword();
     bool invalidguess();
     bool alreadyguessed();
+
+    public:
+    Game();
+    void play();
+    void printTurn();
 };

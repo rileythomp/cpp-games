@@ -9,6 +9,7 @@ class Game {
 
     vector<vector<Cell>> board;
     bool turn;
+    
     void printRow(int i);
     char vertWinner();
     char horizWinner();

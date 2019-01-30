@@ -3,6 +3,7 @@
 
 class Board {
     std::vector<Cell> board = std::vector<Cell>(9);
+    
     public:
     void print();
     bool isPlayed(int move);

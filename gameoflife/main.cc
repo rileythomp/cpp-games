@@ -2,10 +2,10 @@
 #include <iostream>
 #include <vector>
 #include <thread>        
-#include <chrono>        
-using namespace std;
+#include <chrono>      
 
 #define For(i, n) for(int i = 0; i < (n); ++i)
+
 #define RESET   "\033[0m"
 #define BLACK   "\033[30m"      /* Black */
 #define RED     "\033[31m"      /* Red */
@@ -24,13 +24,12 @@ using namespace std;
 #define BOLDCYAN    "\033[1m\033[36m"      /* Bold Cyan */
 #define BOLDWHITE   "\033[1m\033[37m"      /* Bold White */
 
+using namespace std;
+
 void printStart() {
 	For(i, 42) {
-		if (i != 0) {
-			cout << '_';
-		} else {
-			cout << ' ';
-		}
+		if (i != 0) {cout << '_';} 
+        else {cout << ' ';}
 	}
 	cout << endl << '|';
 	For(i, 41) {cout << ' ';}
@@ -46,11 +45,8 @@ void printStart() {
 void print(vector<vector<int>> grid) {
     for (auto row : grid) {
         for (auto cell : row) {
-            if (cell) {
-		        cout << BOLDYELLOW << "\u25A0" << RESET << "  ";
-	        } else {
-	    	    cout << BOLDBLUE << "\u25A0" << RESET << "  ";
-	        }
+            if (cell) {cout << BOLDYELLOW << "\u25A0" << RESET << "  ";} 
+            else {cout << BOLDBLUE << "\u25A0" << RESET << "  ";}
         }
         cout << endl;
     }
@@ -71,14 +67,10 @@ vector<vector<int>> update(vector<vector<int>> grid) {
             if (i < grid.size()-1 && grid[i+1][j]) neighbourCount++;
             if (i < grid.size()-1 && j < grid.size()-1 && grid[i+1][j+1]) neighbourCount++;
             if (grid[i][j]) {
-                if (neighbourCount < 2 || neighbourCount > 3) {
-                    newGrid[i][j] = 0;
-                } else {
-                    newGrid[i][j] = 1;
-                }
-            } else if (neighbourCount == 3) {
-                newGrid[i][j] = 1;
-            }
+                if (neighbourCount < 2 || neighbourCount > 3) {newGrid[i][j] = 0;} 
+                else {newGrid[i][j] = 1;}
+            } 
+            else if (neighbourCount == 3) {newGrid[i][j] = 1;}
             neighbourCount = 0;
         }
     }
@@ -157,17 +149,12 @@ int main() {
                     cin >> row;
                     cout << "Column: ";
                     cin >> col;
-                    if (valid_nums(row, col)) {
-                        grid[stoi(row)][stoi(col)] = 1;
-                    } else {
-                        cout << "Invalid input" << endl;
-                    }
+                    if (valid_nums(row, col)) {grid[stoi(row)][stoi(col)] = 1;} 
+                    else {cout << "Invalid input" << endl;}
                     cout << "Enter add to add a coordinate, enter done to begin Conway's game of life: ";
-                } else if (cmd == "done") {
-                    break;
-                } else {
-                    cout << "Please enter a valid command: ";
-                }
+                } 
+                else if (cmd == "done") {break;} 
+                else {cout << "Please enter a valid command: ";}
             }
         } else {
             cout << "Please enter a valid command: ";

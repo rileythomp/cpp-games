@@ -1,16 +1,9 @@
 #include "cell.h"
-bool Cell::isPlayed() {
-    return played;
-}
 
-char Cell::getVal() {
-    return val;
-}
+bool Cell::isPlayed() {return played;}
 
-void Cell::setPlayed(bool b) {
-    played = b;
-}
+char Cell::getVal() {return val;}
 
-void Cell::setVal(char c) {
-    val = c;
-}
+void Cell::setPlayed(bool b) {played = b;}
+
+void Cell::setVal(char c) {val = c;}

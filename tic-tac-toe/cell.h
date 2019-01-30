@@ -1,6 +1,7 @@
 class Cell {
     bool played = false;
-    char val; // X or O
+    char val; 
+    
     public:
     bool isPlayed();
     char getVal();

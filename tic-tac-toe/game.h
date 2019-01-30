@@ -2,9 +2,10 @@
 #include "board.h"
 
 class Game {
-    bool turn = true; // true is X false is O
+    bool turn = true; 
     Board board;
     int moves = 0;
+
     public:
     void turnMessage();
     void update(int move);
