@@ -8,7 +8,7 @@ using std::vector;
 using std::string;
 
 class Game {
-    vector<vector<Cell>> board;
+    vector<vector<Cell*>> board;
     string pmove;
     int xleft;
     int oleft;
@@ -18,7 +18,6 @@ class Game {
     int nextcol;
     int jumpedrow;
     int jumpedcol;
-    char winner;
     bool turn;
 
     void printrow(int i);
@@ -27,7 +26,7 @@ class Game {
     void update();
     bool validmove();
     bool canmove();
-    bool canjump();
+    bool jumpingRightPiece();
     bool haswinner();
 
     public:

@@ -1,8 +1,8 @@
+#include "checker.h"
+
 class Cell {
     public:
     Cell();
-    Cell(char c);
-    bool filled;
-    char piece;
-    bool isking;
+    bool hasChecker;
+    Checker* checker;
 };

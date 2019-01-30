@@ -1,6 +1,25 @@
 #include "game.h"
+#include <exception>
 
 #define For(i, n) for(int i = 0; i < (n); ++i)
+
+#define RESET   "\033[0m"
+#define BLACK   "\033[30m"      /* Black */
+#define RED     "\033[31m"      /* Red */
+#define GREEN   "\033[32m"      /* Green */
+#define YELLOW  "\033[33m"      /* Yellow */
+#define BLUE    "\033[34m"      /* Blue */
+#define MAGENTA "\033[35m"      /* Magenta */
+#define CYAN    "\033[36m"      /* Cyan */
+#define WHITE   "\033[37m"      /* White */
+#define BOLDBLACK   "\033[1m\033[30m"      /* Bold Black */
+#define BOLDRED     "\033[1m\033[31m"      /* Bold Red */
+#define BOLDGREEN   "\033[1m\033[32m"      /* Bold Green */
+#define BOLDYELLOW  "\033[1m\033[33m"      /* Bold Yellow */
+#define BOLDBLUE    "\033[1m\033[34m"      /* Bold Blue */
+#define BOLDMAGENTA "\033[1m\033[35m"      /* Bold Magenta */
+#define BOLDCYAN    "\033[1m\033[36m"      /* Bold Cyan */
+#define BOLDWHITE   "\033[1m\033[37m"      /* Bold White */
 
 using namespace std;
 
@@ -12,12 +31,16 @@ void printSubRow(char c) {
     cout << '|' << endl;
 }
 
+char printChecker(Cell* cell) {
+    return cell->checker->letter + (cell->checker->isKing ? -32 : 0);
+}
+
 void Game::printrow(int i) {
     printSubRow(' ');
 
-    for (auto cell : board[i]) {
-        char piece = (cell.isking ? cell.piece-32 : cell.piece);
-        cout << '|' << "  " << piece << "  ";
+    vector<Cell*> row = board[i];
+    for (auto cell : row) {
+        cout << '|' << "  " << (cell->checker && cell->checker->isKing ? BOLDRED : "") << (cell->hasChecker ? printChecker(cell) : ' ') << (cell->checker && cell->checker->isKing ? RESET : "") << "  ";
     }
     cout << "| " << i << endl;
 
@@ -43,11 +66,18 @@ void Game::printboard() {
 
 Game::Game() {
     For(i,  8) {
-        vector<Cell> row;
+        vector<Cell*> row;
         For(j, 8) {
-            if (i < 3 && ((i+j)%2)) {row.push_back(Cell('o'));} 
-            else if (i > 4 && ((i+j)%2)) {row.push_back(Cell('x'));} 
-            else {row.push_back(Cell());}
+            Cell* cell = new Cell();
+            if (i < 3 && ((i+j)%2)) {
+                cell->hasChecker = true;
+                cell->checker = new Checker('o');
+            } 
+            else if (i > 4 && ((i+j)%2)) {
+                cell->hasChecker = true;
+                cell->checker = new Checker('x');
+            } 
+            row.push_back(cell);
         }
         board.push_back(row);
     }
@@ -55,6 +85,7 @@ Game::Game() {
     turn = true;
     xleft = 12;
     oleft = 12;
+
     printboard();
     play();
 }
@@ -64,15 +95,21 @@ void Game::update() {
     startrow = pmove[1] - '0';
     nextcol = pmove[3] - '0';
     nextrow = pmove[4] - '0';
-    board[startrow][startcol] = Cell();
-    board[nextrow][nextcol] = Cell((turn ? 'x' : 'o'));
-    if (nextrow == 0 || nextrow == 7) {board[nextrow][nextcol].isking = true;}
+
+    board[nextrow][nextcol]->checker = board[startrow][startcol]->checker;
+    board[nextrow][nextcol]->hasChecker = true;
+    board[startrow][startcol]->hasChecker = false;
+    board[startrow][startcol]->checker = nullptr;
+
+    if (nextrow == 0 || nextrow == 7) {board[nextrow][nextcol]->checker->isKing = true;}
 
     bool jumping = startcol+2 == nextcol || startcol-2 == nextcol;
     if (jumping) {
-        jumpedrow = startrow+(turn ? -1: 1);
+        jumpedrow = startrow+(startrow+2 == nextrow ? 1 : -1);
         jumpedcol = startcol+(startcol+2 == nextcol ? 1 : -1);
-        board[jumpedrow][jumpedcol] = Cell();
+        Cell* jumpedCell = board[jumpedrow][jumpedcol];
+        jumpedCell->hasChecker = false;
+        jumpedCell->checker = nullptr;
         turn ? oleft-- : xleft--;
     }
 
@@ -89,51 +126,45 @@ bool Game::validmove() {
     return true;
 }
 
-bool Game::canjump() {
-    bool wrongcolumn = startcol+2 != nextcol && startcol-2 != nextcol;
-    if (wrongcolumn) {return false;}
-    jumpedrow = startrow+(turn ? -1: 1);
+bool Game::jumpingRightPiece() {
+    jumpedrow = startrow+(startrow+2 == nextrow ? 1: -1);
     jumpedcol = startcol+(startcol+2 == nextcol ? 1 : -1);
-    bool jumpingRightPiece =  board[jumpedrow][jumpedcol].piece == (turn ? 'o' : 'x');
-    return jumpingRightPiece;
+    Cell* jumpedpiece = board[jumpedrow][jumpedcol];
+    if (!jumpedpiece->hasChecker) {return false;}
+    return jumpedpiece->checker->letter == (turn ? 'o' : 'x');
 }
 
 bool Game::canmove() {
     startcol = pmove[0] - '0';
     startrow = pmove[1] - '0';
-    char startpiece = board[startrow][startcol].piece;
-    bool movingWrongPiece = turn ? startpiece != 'x' : startpiece != 'o';
-    if (movingWrongPiece) {return false;}
+    Cell* startcell = board[startrow][startcol];
+    if (!startcell->hasChecker) {return false;}
+
+    bool wrongPiece = (turn ? startcell->checker->letter != 'x' : startcell->checker->letter != 'o');
+    if (wrongPiece) {return false;}
 
     nextcol = pmove[3] - '0';
     nextrow = pmove[4] - '0';
-    bool nextfilled = board[nextrow][nextcol].filled;
-    if (nextfilled) {return false;}
+    Cell* nextcell = board[nextrow][nextcol];
+    if (nextcell->hasChecker) {return false;}
 
-    // x jump normal
-    // x jump w king
-    // o jump normal
-    // o jump w king
-    // x move normal
-    // x move w king
-    // o move normal
-    // o move w king
-    bool attemptingJump = (turn ? startrow-2 == nextrow : startrow+2 == nextrow);
-    if (attemptingJump) {
-        return canjump();
-    }
+    bool tryingKingJump = (startrow+2 == nextrow || startrow-2 == nextrow) &&
+                          (startcol+2 == nextcol || startcol-2 == nextcol) &&
+                          (startcell->checker->isKing);
+    bool tryingJump = (turn ? startrow-2 == nextrow : startrow+2 == nextrow) && 
+                      (startcol+2 == nextcol || startcol-2 == nextcol);
+    if (tryingJump || tryingKingJump) {return jumpingRightPiece();}
 
-    bool legalmove = (turn ? startrow-1 == nextrow : startrow+1 == nextrow) && 
-                     (startcol+1 == nextcol || startcol-1 == nextcol);
-    return legalmove;
+    bool tryingKingMove = (startrow-1 == nextrow || startrow+1 == nextrow) &&
+                          (startcol-1 == nextcol || startcol+1 == nextcol) &&
+                          (startcell->checker->isKing);
+    bool tryingMove = (turn ? startrow-1 == nextrow : startrow+1 == nextrow) && 
+                      (startcol+1 == nextcol || startcol-1 == nextcol);
+    return tryingMove || tryingKingMove;
 }
 
 bool Game::haswinner() {
-    if (oleft == 0 || xleft == 0) {
-        winner = turn ? 'o': 'x';
-        return true;
-    }
-    return false;
+    return oleft == 0 || xleft == 0;
 }
 
 
@@ -144,7 +175,7 @@ void Game::play() {
         if (validmove() && canmove()) { 
             update();
             if (haswinner()) {
-                cout << winner << " wins!" << endl;
+                cout << (turn ? 'o' : 'x') << " wins!" << endl;
                 break;
             }
         } else {

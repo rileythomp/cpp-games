@@ -2,7 +2,7 @@
 CXX = g++
 CXXFLAGS = -std=c++14 -Wall -Werror=vla -g -MMD
 EXEC = checkers
-OBJECTS = main.o game.o cell.o
+OBJECTS = main.o game.o cell.o checker.o
 DEPENDS = ${OBJECTS:.o=.d}
 ${EXEC}: ${OBJECTS}
 # if you just call "make", this will be the target
