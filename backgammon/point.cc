@@ -1,5 +1,7 @@
 #include "point.hh"
-
+#include <iostream>
+using std::cout;
+using std::endl;
 #define For(i, n) for(int i = 0; i < (n); ++i)
 
 Point::Point(int n, char c) {

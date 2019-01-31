@@ -9,24 +9,50 @@ void Game::printBoard() {
     cout << "  13 14 15 16 17 18       19 20 21 22 23 24  " << endl;
     cout << " ___________________________________________ " << endl;
     cout << "|                   |   |                   |" << endl;
-    For(i, 10) {
+    For(i, 11) {
         if (i == 5) {
             cout << "|                   |BAR|                   |" << endl;
             continue;
         }
         cout << "|  ";
-        For(j, 40) {
+        For(j, 16) {
             if (j%3 == 0) {
                 if (i < 5) {
-                    int pointNum = j/3 + 13;
+                    int pointNum = j/3 + 12;
                     Point point = board[pointNum];
                     if (point.length >= i+1) { cout << point.letter(); }
                     else { cout <<  ' ';}
                 }
                 if (i > 5) {
-                    cout << ' ';
+                    int pointNum = 11 - j/3;
+                    Point point = board[pointNum];
+                    if (i >= -1*point.length + 11) { cout << point.letter(); }
+                    else { cout <<  ' ';}
                 }
-            } else {
+            } 
+            else {
+                cout << ' ';
+            }
+        }
+        cout << " |   |  ";
+        For(j, 16) {
+            if (j%3 == 0) {
+                if (i < 5) {
+                    int pointNum = j/3 + 18;
+                    Point point = board[pointNum];
+                    if (point.length >= i+1) { cout << point.letter(); }
+                    else { cout <<  ' ';}
+                }
+                if (i > 5) {
+                    if (i > 5) {
+                        int pointNum = 5 - j/3;
+                        Point point = board[pointNum];
+                        if (i >= -1*point.length + 11) { cout << point.letter(); }
+                        else { cout <<  ' ';}
+                    }
+                }
+            } 
+            else {
                 cout << ' ';
             }
         }
@@ -35,18 +61,19 @@ void Game::printBoard() {
     }
     cout << "|___________________|___|___________________|" << endl;
 	cout << "  12 11 10  9  8  7        6  5  4  3  2  1  " << endl;
+    cout << endl;
 }
 
 Game::Game() {
     For(i, 24) {
-        if (i == 1) { board.push_back(Point(2, 'x')); }
-        else if (i == 6) { board.push_back(Point(5, 'o')); }
-        else if (i == 8) { board.push_back(Point(3, 'o')); }
-        else if (i == 12) { board.push_back(Point(5, 'x')); }
-        else if (i == 13) { board.push_back(Point(5, 'o')); }
-        else if (i == 17) { board.push_back(Point(3, 'x')); }
-        else if (i == 19) { board.push_back(Point(5, 'x')); }
-        else if (i == 24) { board.push_back(Point(2, 'o')); }
+        if (i == 0) { board.push_back(Point(2, 'x')); }
+        else if (i == 5) { board.push_back(Point(5, 'o')); }
+        else if (i == 7) { board.push_back(Point(3, 'o')); }
+        else if (i == 11) { board.push_back(Point(5, 'x')); }
+        else if (i == 12) { board.push_back(Point(5, 'o')); }
+        else if (i == 16) { board.push_back(Point(3, 'x')); }
+        else if (i == 18) { board.push_back(Point(5, 'x')); }
+        else if (i == 23) { board.push_back(Point(2, 'o')); }
         else { board.push_back(Point()); }
     }
     turn = true;
@@ -75,7 +102,7 @@ bool Game::validMove() {
             int start = stoi(startmove);
             int end = stoi(endmove);
 
-            if (start < 1 || start > 24 || end < 1 || end > 24) { return false; }
+            if (start < 1 || start > 24 || end < 0 || end > 25) { return false; }
         }
         else { return false; }
     }
@@ -84,12 +111,12 @@ bool Game::validMove() {
 
 bool Game::canMove() {
     for (auto move : movelist) {
-        int start = stoi(move.substr(0, move.find('/')));
-        int end = stoi(move.substr(move.find('/')+1));
+        int start = stoi(move.substr(0, move.find('/')))-1;
+        int end = stoi(move.substr(move.find('/')+1))-1;
+        
+        if (turn ? end <= start : end >= start) { return false; }
 
-        if (turn ? start <= end : start >= end) { return false; }
         Point startPoint = board[start];
-
         if (!startPoint.occupied) { return false; }
 
         if (startPoint.letter() != (turn ? 'x' : 'o')) { return false; }
@@ -102,6 +129,7 @@ bool Game::canMove() {
 
 void Game::update() {
     movelist = {};
+    turn = !turn;
     printBoard();
 }
 
@@ -151,6 +179,7 @@ void Game::play() {
     time_t seedtime = time(nullptr);
     srand(seedtime);
     while (1) {
+        printBoard();
         getRolls();
 
         getMoves();
