@@ -1,5 +1,5 @@
 class Checker {
-    char letter;
     public:
-    Checker();
+    Checker(char c);
+    char letter;
 };

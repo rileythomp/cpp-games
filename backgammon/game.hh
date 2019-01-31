@@ -9,22 +9,24 @@ using std::string;
 
 class Game {
     bool turn;
-    string pmove;
     int oLeft;
     int xLeft;
-    // inner vector is a stripe (max 15) 
-    // outer vector is all the stripes making the board
+    vector<string> movelist;
     vector<Point> board; 
     vector<Checker*> xBar;
     vector<Checker*> oBar;
     int roll1;
     int roll2;
+    void printBoard();
+    void getRolls();
+    void getMoves();
+    bool canMove();
+    bool validMove();
+    void update();
+    bool hasWinner();
+    void play();
 
 
     public:
     Game();
-    bool canMove();
-    void update();
-    bool hasWinner();
-    void play();
 };

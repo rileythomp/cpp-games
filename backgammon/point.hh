@@ -4,9 +4,13 @@
 using std::vector;
 
 class Point {
-    vector<Checker*> checkers;
-    bool isOccupied;
-
     public:
+    Point(int n, char c);
     Point();
+    char letter();
+    char ownedBy();
+    bool occupied;
+    bool owned;
+    vector<Checker*> checkers;
+    int length;
 };

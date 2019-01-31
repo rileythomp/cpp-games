@@ -9,7 +9,9 @@ void printBoard() {
 	cout << "|                   |   |                   |" << endl;
 	cout << "|                   |   |                   |" << endl;
 	cout << "|                   |   |                   |" << endl;
+	cout << "|                   |   |                   |" << endl;
 	cout << "|                   |BAR|                   |" << endl;
+	cout << "|                   |   |                   |" << endl;
 	cout << "|                   |   |                   |" << endl;
 	cout << "|                   |   |                   |" << endl;
 	cout << "|                   |   |                   |" << endl;
@@ -34,6 +36,6 @@ int main() {
     while (cin >> cmd) {
         if (cmd == "new") {Game game;} 
 		else if (cmd == "quit") {break;} 
-		cout << "Type new to start a game or quit to exit" << endl;
+		cout << "Type new to start a game or quit to exit: ";
     }
 }

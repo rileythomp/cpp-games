@@ -1,5 +1,5 @@
 #include "checker.hh"
 
-Checker::Checker() {
-    char = ' ';
+Checker::Checker(char c) {
+    letter = c;
 }
