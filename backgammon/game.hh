@@ -2,6 +2,7 @@
 #include <iostream>
 #include <vector>
 #include <ctime>
+#include <cmath>
 #include "point.hh"
 
 using std::vector;
@@ -22,6 +23,7 @@ class Game {
     void getMoves();
     bool canMove();
     bool validMove();
+    bool legalJumps();
     void update();
     bool hasWinner();
     void play();

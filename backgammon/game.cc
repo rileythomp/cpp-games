@@ -1,7 +1,10 @@
 #include "game.hh"
 #include <sstream>
+#include <exception>
 
 #define For(i, n) for(int i = 0; i < (n); ++i)
+
+#define printvec(vec) for(auto i : (vec)) { std::cout << i << std::endl; }
 
 using namespace std;
 
@@ -109,6 +112,45 @@ bool Game::validMove() {
     return true;
 }
 
+bool Game::legalJumps() {
+    string move1 = movelist[0];
+    string move2 = movelist[1];
+
+    int start1 = stoi(move1.substr(0, move1.find('/')));
+    int end1 = stoi(move1.substr(move1.find('/')+1));
+
+    int start2 = stoi(move2.substr(0, move2.find('/')));
+    int end2 = stoi(move2.substr(move2.find('/')+1));
+    
+    int jump1 = abs(start1-end1);
+    int jump2 = abs(start2-end2);
+
+    cout << move1 << ' ' << move2 << endl;
+    cout << start1 << ' ' << start2 << ' ' << end1 << ' ' << end2 << ' ' << endl;
+    cout << jump1 << ' ' << jump2 << ' ' << roll1 << ' ' << roll2 << endl;
+    bool legal = ((jump1 == roll1 && jump2 == roll2) || (jump1 == roll2 && jump2 == roll1));
+    bool legaldouble = true;
+
+    if (movelist.size() == 4) {
+        cout << "in double check" << endl;
+        string move3 = movelist[2];
+        string move4 = movelist[3];
+
+        int start3 = stoi(move3.substr(0, move3.find('/')));
+        int end3 = stoi(move3.substr(move3.find('/')+1));
+
+        int start4 = stoi(move4.substr(0, move4.find('/')));
+        int end4 = stoi(move4.substr(move4.find('/')+1));
+
+        int jump3 = abs(start3-end3);
+        int jump4 = abs(start4-end4);
+
+        legaldouble = jump3 == roll1 && jump4 == roll2;
+    }
+    cout << legal << " & " << legaldouble << endl;
+    return legal && legaldouble;
+}
+
 bool Game::canMove() {
     for (auto move : movelist) {
         int start = stoi(move.substr(0, move.find('/')))-1;
@@ -124,7 +166,9 @@ bool Game::canMove() {
         Point endPoint = board[end];
         if (endPoint.ownedBy() == (turn ? 'o' : 'x')) { return false; }
     }
-    return true;
+    cout << "before legal jumps" << endl;
+    printvec(movelist);
+    return legalJumps();
 }
 
 void Game::update() {
@@ -156,6 +200,7 @@ void Game::getRolls() {
 
 void Game::getMoves() {
     while (1) {
+        cout << "It's " << (turn ? 'x': 'o') << "'s turn" << endl;
         cout << "Enter your moves: ";
         string moves;
         cin.ignore();
@@ -166,7 +211,6 @@ void Game::getMoves() {
         while (movestream >> move) {
             movelist.push_back(move);
         }
-
         if (!validMove() || !canMove()) {
             cout << "Please enter a valid move" << endl;
             movelist = {};
