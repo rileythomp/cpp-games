@@ -101,7 +101,6 @@ bool Game::validMove() {
             string endmove = move.substr(pos+1);
 
             if (!isnum(startmove) || !isnum(endmove)) { return false; }
-
             int start = stoi(startmove);
             int end = stoi(endmove);
 
@@ -125,14 +124,10 @@ bool Game::legalJumps() {
     int jump1 = abs(start1-end1);
     int jump2 = abs(start2-end2);
 
-    cout << move1 << ' ' << move2 << endl;
-    cout << start1 << ' ' << start2 << ' ' << end1 << ' ' << end2 << ' ' << endl;
-    cout << jump1 << ' ' << jump2 << ' ' << roll1 << ' ' << roll2 << endl;
     bool legal = ((jump1 == roll1 && jump2 == roll2) || (jump1 == roll2 && jump2 == roll1));
     bool legaldouble = true;
 
     if (movelist.size() == 4) {
-        cout << "in double check" << endl;
         string move3 = movelist[2];
         string move4 = movelist[3];
 
@@ -147,7 +142,7 @@ bool Game::legalJumps() {
 
         legaldouble = jump3 == roll1 && jump4 == roll2;
     }
-    cout << legal << " & " << legaldouble << endl;
+
     return legal && legaldouble;
 }
 
@@ -166,7 +161,7 @@ bool Game::canMove() {
         Point endPoint = board[end];
         if (endPoint.ownedBy() == (turn ? 'o' : 'x')) { return false; }
     }
-    cout << "before legal jumps" << endl;
+
     printvec(movelist);
     return legalJumps();
 }
@@ -182,40 +177,33 @@ bool Game::hasWinner() {
 }
 
 void Game::getRolls() {
-    while (1) {
-        cout << "Enter roll to roll the dice: ";
-        string proll;
-        cin >> proll;
+    cout << "Enter roll to roll the dice: ";
+    string proll;
+    cin >> proll;
 
-        if (proll != "roll") {continue;}
+    if (proll != "roll") {getRolls();}
 
-        roll1 = rand()%6 + 1;
-        roll2 = rand()%6 + 1;
+    roll1 = rand()%6 + 1;
+    roll2 = rand()%6 + 1;
 
-        if (roll1 == roll2) {cout << "You rolled double " << roll1 << "'s!" << endl;}
-        else {cout << "You rolled a " << roll1 << " and a " << roll2 << endl;}
-        break;
-    }
+    if (roll1 == roll2) {cout << "You rolled double " << roll1 << "'s!" << endl;}
+    else {cout << "You rolled a " << roll1 << " and a " << roll2 << endl;}
 }
 
 void Game::getMoves() {
-    while (1) {
-        cout << "It's " << (turn ? 'x': 'o') << "'s turn" << endl;
-        cout << "Enter your moves: ";
-        string moves;
-        cin.ignore();
-        getline(cin, moves);
-
-        stringstream movestream(moves);
-        string move;
-        while (movestream >> move) {
-            movelist.push_back(move);
-        }
-        if (!validMove() || !canMove()) {
-            cout << "Please enter a valid move" << endl;
-            movelist = {};
-        }
-        else { break; }
+    cout << "It's " << (turn ? 'x': 'o') << "'s turn" << endl;
+    cout << "Enter your moves: ";
+    string moves;
+    getline(cin, moves);
+    stringstream movestream(moves);
+    string move;
+    while (movestream >> move) {
+        movelist.push_back(move);
+    }
+    if (!validMove() || !canMove()) {
+        cout << "Please enter a valid move" << endl;
+        movelist = {};
+        getMoves();
     }
 }
 
