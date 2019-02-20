@@ -1,6 +1,8 @@
 #include "game.h"
 
-using namespace std;
+using std::cout;
+using std::endl;
+using std::cin;
 
 void printStart() {
 	cout << " ____________________________" << endl;
