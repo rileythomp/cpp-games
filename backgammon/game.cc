@@ -90,7 +90,8 @@ bool isnum(string s) {
     return true;
 }
 
-bool Game::validMove() {
+bool Game::validMove(string move) {
+    return true;
     if (roll1 == roll2 && movelist.size() != 4) {return false;}
     else if (roll1 != roll2 && movelist.size() != 2) {return false;}
 
@@ -146,7 +147,8 @@ bool Game::legalJumps() {
     return legal && legaldouble;
 }
 
-bool Game::canMove() {
+bool Game::canMove(string move) {
+    return true;
     for (auto move : movelist) {
         int start = stoi(move.substr(0, move.find('/')))-1;
         int end = stoi(move.substr(move.find('/')+1))-1;
@@ -180,7 +182,6 @@ void Game::getRolls() {
     cout << "Enter roll to roll the dice: ";
     string proll;
     cin >> proll;
-
     if (proll != "roll") {getRolls();}
 
     roll1 = rand()%6 + 1;
@@ -193,18 +194,31 @@ void Game::getRolls() {
 void Game::getMoves() {
     cout << "It's " << (turn ? 'x': 'o') << "'s turn" << endl;
     cout << "Enter your moves: ";
-    string moves;
-    getline(cin, moves);
-    stringstream movestream(moves);
     string move;
-    while (movestream >> move) {
-        movelist.push_back(move);
+    while (cin >> move) {
+        cout << move << endl;
+        if (validMove(move) && canMove(move)) {
+            movelist.push_back(move);
+            break;
+        } else {
+            cout << "Sorry, " << move << " isn't a valid move, please try again" << endl;
+            cout << "Enter your moves: ";
+        }
     }
-    if (!validMove() || !canMove()) {
-        cout << "Please enter a valid move" << endl;
-        movelist = {};
-        getMoves();
-    }
+    // cin.clear();
+    // cin.sync();
+    // getline(cin, moves);
+    // stringstream movestream; // (moves);
+    // // string move;
+    // while (movestream >> moves) {
+    //     movelist.push_back(moves);
+    //     cout << moves << endl;
+    // }
+    // if (!validMove() || !canMove()) {
+    //     cout << "Please enter a valid move" << endl;
+    //     movelist = {};
+    //     getMoves();
+    // }
 }
 
 void Game::play() {

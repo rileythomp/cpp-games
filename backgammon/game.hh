@@ -21,8 +21,8 @@ class Game {
     void printBoard();
     void getRolls();
     void getMoves();
-    bool canMove();
-    bool validMove();
+    bool canMove(string move);
+    bool validMove(string move);
     bool legalJumps();
     void update();
     bool hasWinner();
