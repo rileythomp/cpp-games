@@ -13,9 +13,9 @@ class Game {
     std::string guess;
     std::vector<char> guesses;
     std::vector<char> letters;
+    void setword();
     bool haswon();
     bool inword();
-    void setword();
     bool invalidguess();
     bool alreadyguessed();
 

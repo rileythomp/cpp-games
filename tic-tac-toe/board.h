@@ -6,7 +6,7 @@ class Board {
     
     public:
     void print();
-    bool isPlayed(int move);
     void update(int move, bool turn);
+    bool isPlayed(int move);
     char getVal(int cell);
 };

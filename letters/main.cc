@@ -2,7 +2,12 @@
 #include <vector>
 #include <iostream>
 
-using namespace std;
+using std::getline;
+using std::cin;
+using std::cout;
+using std::endl;
+using std::vector;
+using std::string;
 
 vector<string> a = {"        ",
                     "        ",
@@ -226,7 +231,7 @@ vector<string> x = {"        ",
 vector<string> y = {"        ",
                     "        ",
                     "  _    _ ",
-                    "   \\ \\/ / ",
+                    "  \\ \\/ / ",
                     "   \\  /  ",
                     "   / /   ",
                     " / /    ",
@@ -422,7 +427,17 @@ vector<string> Z = {" ********* ",
                     " * ******* ",
                     " ********* "};
 
-  vector<vector<string>> letters;
+vector<string> space = {"      ",
+                        "      ",
+                        "      ",
+                        "      ",
+                        "      ",
+                        "      ",
+                        "      ",
+                        "      ",
+                        "      "};
+
+vector<vector<string>> letters;
                     
 void addtoletters(char letter) {
     switch (letter) {
@@ -504,20 +519,100 @@ void addtoletters(char letter) {
         case 'z':
             letters.push_back(z);
             break;
+        case 'A':
+            letters.push_back(A);
+            break;
+        case 'B':
+            letters.push_back(B);
+            break;
+        case 'C':
+            letters.push_back(C);
+            break;
+        case 'D':
+            letters.push_back(D);
+            break;
+        case 'E':
+            letters.push_back(E);
+            break;
+        case 'F':
+            letters.push_back(F);
+            break;
+        case 'G':
+            letters.push_back(G);
+            break;
+        case 'H':
+            letters.push_back(H);
+            break;
+        case 'I':
+            letters.push_back(I);
+            break;
+        case 'J':
+            letters.push_back(J);
+            break;
+        case 'K':
+            letters.push_back(K);
+            break;
+        case 'L':
+            letters.push_back(L);
+            break;
+        case 'M':
+            letters.push_back(M);
+            break;
+        case 'N':
+            letters.push_back(N);
+            break;
+        case 'O':
+            letters.push_back(O);
+            break;
+        case 'P':
+            letters.push_back(P);
+            break;
+        case 'Q':
+            letters.push_back(Q);
+            break;
+        case 'R':
+            letters.push_back(R);
+            break;
+        case 'S':
+            letters.push_back(S);
+            break;
+       case 'T':
+            letters.push_back(T);
+            break;
+        case 'U':
+            letters.push_back(U);
+            break;
+        case 'V':
+            letters.push_back(V);
+            break;
+        case 'W':
+            letters.push_back(W);
+            break;
+        case 'X':
+            letters.push_back(X);
+            break;
+        case 'Y':
+            letters.push_back(Y);
+            break;
+        case 'Z':
+            letters.push_back(Z);
+            break;
+        case ' ':
+            letters.push_back(space);
+            break;
     }
 }
 
 int main() {
-    cout << "Enter a word to be printed" << endl << endl;
+    cout << "Enter a word to be printed: ";
     string word;
-    while (cin >> word) {
+    while (getline(cin, word)) {
         letters = {};
         for (char c : word) {addtoletters(c);}
         for (int x = 0; x < letters[0].size(); ++x) {
             for (auto letter : letters) {cout << letter[x];}
             cout << endl;
         }   
-        cout << endl;
-        cout << "Enter a word to be printed" << endl << endl;;
+        cout << "Enter a word to be printed: ";
     }
 }

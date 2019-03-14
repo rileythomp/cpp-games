@@ -19,7 +19,6 @@ class Game {
     int jumpedcol;
     string pmove;
     vector<vector<Cell*>> board;
-
     void printrow(int i);
     void printboard();
     void play();

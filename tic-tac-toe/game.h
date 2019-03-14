@@ -2,16 +2,16 @@
 #include "board.h"
 
 class Game {
-    bool turn = true; 
     Board board;
+    bool turn = true; 
     int moves = 0;
 
     public:
     void turnMessage();
     void update(int move);
-    bool hasWinner();
     void printWinner();
     void printDraw();
     void printBoard();
+    bool hasWinner();
     int numMoves();
 };

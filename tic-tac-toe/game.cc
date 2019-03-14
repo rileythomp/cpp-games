@@ -18,6 +18,20 @@ void Game::update(int move) {
     }
 }
 
+void Game::printDraw() {
+    std::cout << "Cat's game!" << std::endl;
+    std::cout << "Type new to play again or quit to exit" << std::endl << std::endl;
+}
+
+void Game::printWinner() {
+    if (!turn) {std::cout << 'X';} 
+    else { std::cout << 'O'; }
+    std::cout << " wins!" << std::endl;
+    std::cout << "Type new to play again or quit to exit" << std::endl << std::endl;
+}
+
+void Game::printBoard() {board.print();}
+
 bool Game::hasWinner() {
     for (int i = 0; i < 7; ++i) {
         if (!board.isPlayed(i)) {continue;}
@@ -48,19 +62,5 @@ bool Game::hasWinner() {
     }
     return false;
 }
-
-void Game::printDraw() {
-    std::cout << "Cat's game!" << std::endl;
-    std::cout << "Type new to play again or quit to exit" << std::endl << std::endl;
-}
-
-void Game::printWinner() {
-    if (!turn) {std::cout << 'X';} 
-    else { std::cout << 'O'; }
-    std::cout << " wins!" << std::endl;
-    std::cout << "Type new to play again or quit to exit" << std::endl << std::endl;
-}
-
-void Game::printBoard() {board.print();}
 
 int Game::numMoves() {return moves;}

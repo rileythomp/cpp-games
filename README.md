@@ -1,2 +1,2 @@
 # cpp-projects
-A collection of small C++ projects
+A collection of small C++ projects.

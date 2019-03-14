@@ -2,14 +2,10 @@
 #include <iostream>
 #include <vector>
 #include <thread>        
-<<<<<<< HEAD
-#include <chrono>      
-=======
 #include <chrono>        
 #include <algorithm>
 #include <iterator>
 using namespace std;
->>>>>>> 033a9d969110104e11a7d01cb1ccdbfad9e281b4
 
 #define For(i, n) for(int i = 0; i < (n); ++i)
 
