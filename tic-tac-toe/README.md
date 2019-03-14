@@ -1,3 +1,1 @@
-Run ./ttt to play in your terminal
-
-Built using object oriented programming principles.
+Run make and ./ttt to play in your terminal.
