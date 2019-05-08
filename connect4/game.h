@@ -7,7 +7,7 @@ using std::vector;
 
 class Game {
     vector<vector<Cell>> board;
-    bool turn;
+    bool turn = true;
     void printRow(int i);
     char vertWinner();
     char horizWinner();
