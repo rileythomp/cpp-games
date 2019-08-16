@@ -1,13 +1,14 @@
 #include <string>
 #include <iostream>
 #include "game.h"
+#include "title_print.h"
 
 using namespace std;
 
 void print_welcome() {
-    cout << endl;
-    cout << "             Reversi             " << endl;
-    cout << endl;
+    // cout << endl;
+    // cout << "             Reversi             " << endl;
+    print_title("reversi");
     cout << "Enter p to play" << endl;
     cout << "Enter i for instructions" << endl;
 }
