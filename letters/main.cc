@@ -230,10 +230,10 @@ vector<string> x = {"        ",
 
 vector<string> y = {"        ",
                     "        ",
-                    "  _    _ ",
-                    "  \\ \\/ / ",
-                    "   \\  /  ",
-                    "   / /   ",
+                    " _    _ ",
+                    " \\ \\/ / ",
+                    "  \\  /  ",
+                    "  / /   ",
                     " / /    ",
                     "/_/     "};
 
@@ -603,16 +603,16 @@ void addtoletters(char letter) {
     }
 }
 
-int main() {
-    cout << "Enter a word to be printed: ";
-    string word;
-    while (getline(cin, word)) {
-        letters = {};
-        for (char c : word) {addtoletters(c);}
-        for (int x = 0; x < letters[0].size(); ++x) {
-            for (auto letter : letters) {cout << letter[x];}
-            cout << endl;
-        }   
-        cout << "Enter a word to be printed: ";
-    }
-}
+// int main() {
+//     cout << "Enter a word to be printed: ";
+//     string word;
+//     while (getline(cin, word)) {
+//         letters = {};
+//         for (char c : word) {addtoletters(c);}
+//         for (int x = 0; x < letters[0].size(); ++x) {
+//             for (auto letter : letters) {cout << letter[x];}
+//             cout << endl;
+//         }   
+//         cout << "Enter a word to be printed: ";
+//     }
+// }
