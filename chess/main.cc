@@ -21,6 +21,7 @@ int main() {
             Player p2(p2_name);
 
             Game game(board, p1, p2);
+            game.play();
         }
     }
 }
