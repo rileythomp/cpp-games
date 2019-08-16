@@ -1,5 +1,4 @@
 #include "game.h"
-#include <exception>
 
 #define For(i, n) for(int i = 0; i < (n); ++i)
 
@@ -155,7 +154,7 @@ void Game::play() {
                 break;
             }
         } else {
-            cout << "Please enter a valid pmove" << endl;
+            cout << "Please enter a valid move" << endl;
         }
     }
 }

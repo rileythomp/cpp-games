@@ -1,4 +1,5 @@
 #include "game.h"
+#include "title_print.h"
 
 #define For(i, n) for(int i = 0; i < (n); ++i)
 
@@ -18,11 +19,12 @@ void printHanger() {
 }
 
 void printStart() {
-	cout << "_________________________" << endl;
-	cout << "|                       |" << endl;
-	cout << "|        Hangman        |" << endl;
-	cout << "|_______________________|" << endl;
-	cout << endl;         
+	//cout << "_________________________" << endl;
+	//cout << "|                       |" << endl;
+	//cout << "|        Hangman        |" << endl;
+	//cout << "|_______________________|" << endl;
+	//cout << endl;
+	print_title("hangman");     
 	printHanger();
 	cout << "Enter start to begin playing" << endl;
 	cout << endl;

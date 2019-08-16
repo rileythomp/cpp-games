@@ -2,6 +2,8 @@
 #include <iostream>
 #include <exception>
 #include "game.h"
+#include "title_print.h"
+
 using namespace std;
 
 #define For(i,n) for(int i = 0; i < (n); ++i)
@@ -24,8 +26,11 @@ void printStart() {
 }
 
 int main () {
-  printStart();
-  string cmd;
+  // printStart();
+    print_title("tic tac toe");
+    cout << "Enter number 0-8, 0 is top left, 1 is top middle, ..., 7 is bottom middle and 8 is bottom right" << endl;
+    cout << "Enter new to start a game" << endl;
+    string cmd;
     while (cin >> cmd) {
 		if (cmd == "new") {
 			Game game;

@@ -5,6 +5,8 @@
 #include <chrono>        
 #include <algorithm>
 #include <iterator>
+#include "title_print.h"
+
 using namespace std;
 
 #define For(i, n) for(int i = 0; i < (n); ++i)
@@ -87,7 +89,8 @@ bool valid_nums(const string& s1, const string& s2) {
 }
 
 int main() {
-    printStart();
+    //printStart();
+    print_title("conways game of life");
     vector<vector<int>> grid(45, vector<int>(45));
     cout << "Use ctrl-c to stop the program at any time" << endl;
     cout << "1: R-pentomino" << endl;

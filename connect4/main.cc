@@ -1,8 +1,11 @@
 #include "game.h"
+#include "title_print.h"
+
 using namespace std;
 #define For(n) for(int i = 0; i < (n); ++i)
 
 void printStart() {
+	/*
 	For(44) {
 		if (i != 0) {cout << '_';} 
         else {cout << ' ';}
@@ -15,6 +18,8 @@ void printStart() {
   	For(17) {cout << " ";}
 	cout << '|' << endl << '|';
 	For(43) {cout << '_';}
+	*/
+	print_title("connect 4");
 	cout << '|' << endl << endl << "Type new to start a game!" << endl;
 	cout << "To drop a piece, enter it's column number" << endl << endl;;
 }
