@@ -1,4 +1,4 @@
-#include "piece.h"
+#include "pieces/piece.h"
 #include <string>
 
 class Cell {
@@ -11,7 +11,10 @@ class Cell {
     Cell(Piece* _piece) : hasPiece{true}, piece{_piece} {}
 
     char letter() {
-        return piece->get_letter();
+        if (piece) {
+            return piece->get_letter();
+        }
+        return ' ';
     }
 
 

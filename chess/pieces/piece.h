@@ -3,15 +3,15 @@
 
 class Piece {
     public:
+    virtual ~Piece() {};
     virtual void move() = 0;
-    char get_letter() {
-        return letter;
-    }
+    virtual char get_letter() = 0;
 
     protected:
     int row;
     int col;
     char letter;
+    bool p1_piece;
 };
 
 #endif

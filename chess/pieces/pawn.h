@@ -5,13 +5,15 @@
 
 class Pawn: public Piece {
   public:
-  Pawn(int r, int c) : row{r}, col{c}, letter{'p'} {}
+  Pawn(int r, int c, bool _p1_piece);
   void move() override;
+  char get_letter() override;
 
   private:
   int row;
   int col;
   char letter;
+  bool p1_piece;
 
 };
 
