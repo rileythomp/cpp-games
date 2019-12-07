@@ -47,13 +47,23 @@ void Game::get_moves() {
     if (col_in == "quit") {
         throw std::runtime_error("Quit game");
     }
-    row = stoi(row_in);
-    col = stoi(col_in);
+
+    try {
+        row = stoi(row_in);
+        col = stoi(col_in);
+    } catch (std::invalid_argument& e) {
+        handle_bad_moves();
+    }
+
 
     if (invalid_move()) {
-        std::cout << "Invalid move, try again" << std::endl;
-        get_moves();
+        handle_bad_moves();
     }
+}
+
+void Game::handle_bad_moves() {
+    std::cout << "Invalid move, try again" << std::endl;
+    get_moves();
 }
 
 void Game::update_board() {

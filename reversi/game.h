@@ -35,6 +35,7 @@ class Game {
     void print_row(Row row);
     void print_board();
     inline bool invalid_move();
+    void handle_bad_moves();
     inline std::string current_player();
     inline std::string player_colour();
     void get_moves();
