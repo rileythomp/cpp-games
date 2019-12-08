@@ -4,6 +4,10 @@
 
 To run locally:
 
+```$ git clone https://github.com/rileythomp/cpp-games.git```
+
+```$ cd cpp-games/tic-tac-toe```
+
 ```$ make```
 
 ```$ ./ttt```

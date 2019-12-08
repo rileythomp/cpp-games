@@ -6,12 +6,12 @@ class Piece {
     virtual ~Piece() {};
     virtual void move() = 0;
     virtual char get_letter() = 0;
-
+    bool p1_piece;
+    
     protected:
     int row;
     int col;
     char letter;
-    bool p1_piece;
 };
 
 #endif

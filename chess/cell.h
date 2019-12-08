@@ -2,13 +2,13 @@
 #include <string>
 
 class Cell {
-    bool hasPiece;
+    public:
+    bool has_piece;
     Piece* piece;
 
-    public:
-    Cell() : hasPiece{false}, piece{nullptr} {}
+    Cell() : has_piece{false}, piece{nullptr} {}
 
-    Cell(Piece* _piece) : hasPiece{true}, piece{_piece} {}
+    Cell(Piece* _piece) : has_piece{true}, piece{_piece} {}
 
     char letter() {
         if (piece) {

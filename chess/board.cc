@@ -34,6 +34,47 @@ Board::Board() {
     }
 }
 
+bool Board::legal_move(Move move, bool turn) {
+    // there needs to be a piece that is urs that is on the start sqr.
+    Cell start_cell = board[move.first.first][move.first.second];
+    std::cout << "get letter  " << start_cell.piece->get_letter() << std::endl;
+    std::cout << "p1 piece: " << start_cell.piece->p1_piece << std::endl;
+
+    if (!start_cell.has_piece) {
+        return false;
+    }
+
+    std::cout << "turn: " << turn << std::endl;
+    std::cout << "p1 piece: " << start_cell.piece->p1_piece << std::endl;
+
+    // it needs to be ur piece
+    if (start_cell.piece->p1_piece == turn) {
+        std::cout << "illegal move" << std::endl;
+        return false;
+    }
+
+    return true;
+}
+
+// move is ((start row, start col), (end row, end col))
+void Board::make_move(Move move, bool turn) {
+    if (legal_move(move, turn)) {
+        std::pair<int, int> start = move.first;
+        std::pair<int, int> end = move.second;
+
+        Cell& start_cell = board[start.first][start.second];
+        Cell& end_cell = board[end.first][end.second];
+
+        end_cell.piece = start_cell.piece;
+        end_cell.has_piece = true;
+        start_cell.has_piece = false;
+        start_cell.piece = nullptr;
+    }
+    else {
+        
+    }
+}
+
 void Board::print() {
     int i = 8;
     std::cout << "     a   b   c   d   e   f   g   h  " << std::endl;
