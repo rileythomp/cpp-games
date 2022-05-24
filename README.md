@@ -1,6 +1,6 @@
 # cpp-games
 
-A collection of small games written in C++ using OOP including Chess, Checkers, Connect 4, Hangman, Conway's Game of Life, Tic-Tac-Toe and a block letter printing program.
+A collection of small games written in C++ using OOP including Chess, Checkers, Connect 4, Hangman, Reversi, Conway's Game of Life, Tic-Tac-Toe and a block letter printing program.
 
 |     |     |
 | --- | --- |
